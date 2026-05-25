@@ -72,50 +72,6 @@ const SKILLS_DB: SkillItem[] = [
     stats: ['+88% Dynamic LLM Prompting', '+92% Context Extraction'],
     enchantments: ['Few-Shot Orchestration V', 'System Role Guardrails IV'],
     description: 'A mystical wand that commands large language models, crafting highly optimized prompt frames and context flows.'
-  },
-  {
-    id: 'k8s',
-    name: 'Kubernetes Scaling Trident',
-    level: 93,
-    quality: 'Enchanted Grade',
-    type: 'Siege Weapon',
-    icon: '🔱',
-    stats: ['+93% Pod Orchestration', '+95% Auto-healing Scalability'],
-    enchantments: ['Multi-Cluster Orchestration V', 'Zero-Downtime Deployment IV'],
-    description: 'Balances container instances dynamically, ensuring high availability and orchestrating multi-region nodes.'
-  },
-  {
-    id: 'ts',
-    name: 'TypeScript Infinity Bow',
-    level: 95,
-    quality: 'Diamond Grade',
-    type: 'Ranged Weapon',
-    icon: '🏹',
-    stats: ['+95% Type Integrity', '+94% Compile Safety Guard'],
-    enchantments: ['Strict Type Casting V', 'Zero-Null Exception IV'],
-    description: 'Fires type definitions that eliminate standard runtime defects, locking variables into immutable mathematical states.'
-  },
-  {
-    id: 'docker',
-    name: 'Docker Sealed Obsidian Box',
-    level: 90,
-    quality: 'Emerald Grade',
-    type: 'Defense Gear',
-    icon: '📦',
-    stats: ['+90% Layer Optimization', '+92% Container Isolation'],
-    enchantments: ['Namespace Isolation V', 'Alpine Micro-Image IV'],
-    description: 'Constructs pristine sandbox containers, minimizing execution footprint and isolating namespace permissions securely.'
-  },
-  {
-    id: 'python',
-    name: 'Python Poison Dagger',
-    level: 91,
-    quality: 'Emerald Grade',
-    type: 'Melee Weapon',
-    icon: '🗡️',
-    stats: ['+91% Scripting Speed', '+90% API Bite Rate'],
-    enchantments: ['Deep Machine Library V', 'Rapid Socket Scripting IV'],
-    description: 'A fast automation weapon that writes backend logic and scripts network sockets with minimal latency.'
   }
 ];
 
