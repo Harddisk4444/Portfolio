@@ -60,7 +60,7 @@ const CERTS_DB: Certificate[] = [
     date: '2025',
     description: 'Validates deep mastery of foundational security principles, incident handling, access control, and network security concepts.\n\nDomains: Security Principles · Business Continuity & DR · Access Controls · Network Security & Operations',
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: 'assets/images/badges/certified-in-cybersecurity-cc.png'
+    image: './assets/images/badges/certified-in-cybersecurity-cc.png'
   },
   {
     id: 'cert_secplus',
@@ -69,7 +69,7 @@ const CERTS_DB: Certificate[] = [
     date: '2025',
     description: 'Validates the core knowledge required to execute essential security functions and pursue an active career in cybersecurity operations and DevSecOps engineering.\n\nDomains: Attacks & Threats · Architecture & Secure Design · Implementation · Governance, Risk & Compliance',
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: 'assets/images/certificates/1240867619970528.jpg'
+    image: './assets/images/certificates/1240867619970528.jpg'
   },
   {
     id: 'cert_google',
@@ -78,7 +78,7 @@ const CERTS_DB: Certificate[] = [
     date: '2025',
     description: 'Verified competence in utilizing SIEM tools, intrusion detection systems, and Python automation for security operations.\n\nTools: Python · Linux OS · SQL · Chronicle & Splunk SIEM · Wireshark',
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: 'assets/images/certificates/1240867623303861.jpg'
+    image: './assets/images/certificates/1240867623303861.jpg'
   },
   {
     id: 'cert_ejpt',
@@ -87,7 +87,7 @@ const CERTS_DB: Certificate[] = [
     date: '2025',
     description: 'Validates hands-on capabilities in penetration testing, network assessment, web application exploits, and offensive security methodologies.\n\nSkills: IP Routing · Network Pivoting · Vulnerability Assessment · Metasploit & Nmap · Web App Pentesting',
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: 'assets/images/certificates/1240867703303853.jpg'
+    image: './assets/images/certificates/1240867703303853.jpg'
   }
 ];
 
@@ -130,7 +130,7 @@ EXTRA_CERT_FILES.forEach((filename, idx) => {
     date: '2024–2025',
     description: 'An officially verified credential demonstrating achievement and competency in cybersecurity, networking, or information technology disciplines.',
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: `assets/images/certificates/${filename}`
+    image: `./assets/images/certificates/${filename}`
   });
 });
 
