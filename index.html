@@ -23,8 +23,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
   
   <!-- Core CSS -->
-  <script type="module" crossorigin src="./assets/js/index-D_EraCkF.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/css/index-BGeBxaQ_.css">
+  <script type="module" crossorigin src="./assets/js/index-DqS-jEOF.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/css/index-DCtVt9z5.css">
 </head>
 <body>
 
@@ -50,39 +50,48 @@
       </div>
       
       <nav class="main-menu" aria-label="Main Navigation">
-        <button id="menu-explore" class="btn-minecraft" data-target="skills-section">
+        <a href="#skills-section" id="menu-explore" class="btn-minecraft" style="text-decoration: none;">
           Explore Portfolio
-        </button>
-        <button id="menu-socials" class="btn-minecraft">
-          Socials & Contact
-        </button>
-        <button id="menu-settings" class="btn-minecraft">
-          Audio & Settings
-        </button>
+        </a>
+        <a href="#projects-section" id="menu-socials" class="btn-minecraft" style="text-decoration: none;">
+          Enchanted Credentials
+        </a>
+        <a href="#terminal-section" id="menu-settings" class="btn-minecraft" style="text-decoration: none;">
+          Command Block & Contact
+        </a>
       </nav>
+
+      <div class="scroll-down-indicator" aria-hidden="true">
+        <span class="arrow-pixel">▼</span>
+      </div>
     </header>
 
     <!-- Main Content Container (Semantic HTML for absolute SEO indexability) -->
-    <main id="portfolio-world" class="hidden-world">
+    <main id="portfolio-world">
       
       <!-- 2. Skills Inventory Grid (Section 1) -->
       <section id="skills-section" class="section content-section">
         <h2 class="section-title text-green">Skills Inventory</h2>
-        <p class="section-subtitle">Hover over technical weapons and armor slots to view custom tooltips & stats.</p>
+        <p class="section-subtitle">Tap slots in the inventory HUD grid below to inspect active weapons and stats.</p>
         
         <div class="inventory-container">
-          <!-- Minecraft HUD Inventory Grid -->
-          <div class="inventory-grid" id="skills-inventory">
-            <!-- Dynamically populated, but contains semantic fallback labels for crawlers -->
-            <noscript>
-              <ul>
-                <li>Threat Intelligence - Level 95</li>
-                <li>Threat Hunting - Level 92</li>
-                <li>Threat Analysis - Level 94</li>
-                <li>Secure Networks & Infrastructure - Level 90</li>
-                <li>AI Prompt Engineering - Level 88</li>
-              </ul>
-            </noscript>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%;">
+            <!-- Minecraft HUD Inventory Grid -->
+            <div class="inventory-grid" id="skills-inventory">
+              <noscript>
+                <ul>
+                  <li>Threat Intelligence - Level 95</li>
+                  <li>Threat Hunting - Level 92</li>
+                  <li>Threat Analysis - Level 94</li>
+                  <li>Secure Networks & Infrastructure - Level 90</li>
+                  <li>AI Prompt Engineering - Level 88</li>
+                </ul>
+              </noscript>
+            </div>
+            <!-- Dynamic Inline Skills Details Panel -->
+            <div id="skills-details-panel" class="skills-details-panel hidden-details">
+              <div class="details-placeholder">Select a weapon slot to view statistics...</div>
+            </div>
           </div>
         </div>
       </section>
@@ -90,7 +99,7 @@
       <!-- 3. Featured Projects & Certificates (Section 2) -->
       <section id="projects-section" class="section content-section">
         <h2 class="section-title text-red">Featured Projects & Certificates</h2>
-        <p class="section-subtitle">Complete quests and inspect enchanted credential logs.</p>
+        <p class="section-subtitle">Complete active quests or flip open the enchanted credential books below.</p>
         
         <div class="quest-log-container">
           
@@ -102,11 +111,11 @@
             </div>
           </div>
           
-          <!-- Certificates List (Enchanted Library) -->
+          <!-- Certificates List (Enchanted Library Shelf) -->
           <div class="certificates-column">
             <h3 class="subtitle-block">Enchanted Credentials (Certificates)</h3>
             <div class="certificates-shelf" id="certs-shelf">
-              <!-- Dynamically populated books -->
+              <!-- Dynamically populated 3D Flipping Books -->
             </div>
           </div>
           
@@ -115,8 +124,8 @@
 
       <!-- 4. Interactive Console & Quest Scroll (Section 3) -->
       <section id="terminal-section" class="section content-section">
-        <h2 class="section-title text-cyan">Command-Block Console</h2>
-        <p class="section-subtitle">Run simulated secure commands or open a contact transmission scroll.</p>
+        <h2 class="section-title text-cyan">Command-Block Console & Manifest</h2>
+        <p class="section-subtitle">Run simulated secure commands or transmit an encrypted contact scroll.</p>
         
         <div class="console-wrapper">
           <!-- Command Block UI Terminal -->
@@ -132,13 +141,39 @@
               <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" aria-label="Terminal Input" placeholder="Type here...">
             </div>
           </div>
+
+          <!-- QUEST SCROLL CONTACT SHEET (Inline) -->
+          <div class="quest-scroll-form" id="contact-scroll">
+            <div class="scroll-roller-top"></div>
+            <div class="scroll-body">
+              <h3 class="scroll-title">MANIFEST SCROLL</h3>
+              <div class="scroll-fields">
+                <div class="scroll-field">
+                  <label for="scroll-name" class="scroll-label">Your Cryptic Name:</label>
+                  <input type="text" id="scroll-name" class="scroll-input" autocomplete="off" placeholder="Enter name...">
+                </div>
+                <div class="scroll-field">
+                  <label for="scroll-email" class="scroll-label">Safe Delivery Mail:</label>
+                  <input type="email" id="scroll-email" class="scroll-input" autocomplete="off" placeholder="name@domain.com">
+                </div>
+                <div class="scroll-field">
+                  <label for="scroll-message" class="scroll-label">Secure Transmission Data:</label>
+                  <textarea id="scroll-message" class="scroll-textarea" rows="4" placeholder="Type secure message..."></textarea>
+                </div>
+              </div>
+              <div class="scroll-action">
+                <button id="btn-scroll-submit" class="btn-minecraft">SEND SCROLL</button>
+              </div>
+            </div>
+            <div class="scroll-roller-bottom"></div>
+          </div>
         </div>
       </section>
 
     </main>
 
     <!-- Persistent HUD Overlay (Hearts & XP indicators) -->
-    <footer id="hud-world" class="hud-overlay hidden-world">
+    <footer id="hud-world" class="hud-overlay">
       <div class="hud-content">
         <!-- Hearts Bar -->
         <div class="hud-hearts" id="hud-hearts" aria-label="Health Status">
