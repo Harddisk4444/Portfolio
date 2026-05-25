@@ -9,7 +9,11 @@ import { QuestBook } from './components/QuestBook';
 import { Terminal } from './components/Terminal';
 import { GameManager, synth } from './core/gameEngine';
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
+  // Prevent double initialization
+  if ((window as any).__ggsk_initialized) return;
+  (window as any).__ggsk_initialized = true;
+
   // 1. Initialize Canvas Background
   let canvasGrid: CanvasGrid | null = null;
   try {
@@ -122,15 +126,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnSocials = document.getElementById('menu-socials');
   btnSocials?.addEventListener('click', () => {
     synth.playClick();
-    // Simulate terminal call to sumon contact scroll
+    
+    // If the world is hidden, reveal it first so that the terminal section becomes visible and focusable
+    if (portfolioWorld?.classList.contains('hidden-world')) {
+      portfolioWorld.classList.remove('hidden-world');
+      hudWorld?.classList.remove('hidden-world');
+    }
+
+    // Simulate terminal call to summon contact scroll
     const terminalInput = document.getElementById('terminal-input') as HTMLInputElement;
     if (terminalInput) {
       terminalInput.value = '/contact';
       const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
       terminalInput.dispatchEvent(enterEvent);
       
-      const target = document.getElementById('terminal-section');
-      target?.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        const target = document.getElementById('terminal-section');
+        target?.scrollIntoView({ behavior: 'smooth' });
+      }, 50);
     }
   });
 
@@ -169,4 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (canvasGrid) canvasGrid.destroy();
     inventory.destroy();
   });
-});
+}
+
+// Bulletproof app bootstrapper for deferred modules
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}

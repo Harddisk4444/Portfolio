@@ -49,6 +49,8 @@ body {
 
 /* General Layout Elements */
 .site-container {
+  position: relative;
+  z-index: 1;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px 20px 100px 20px;

@@ -123,12 +123,17 @@ export class Inventory {
   private container: HTMLDivElement;
   private game: GameManager;
   private activeTooltip: HTMLDivElement | null = null;
+  private docClickListener: () => void;
 
   constructor(containerId: string, game: GameManager) {
     this.container = document.getElementById(containerId) as HTMLDivElement;
     this.game = game;
     this.createTooltipElement();
     this.render();
+
+    // Hide tooltip when clicking anywhere else (perfect for mobile tap-to-dismiss)
+    this.docClickListener = () => this.hideTooltip();
+    document.addEventListener('click', this.docClickListener);
   }
 
   private createTooltipElement() {
@@ -154,13 +159,30 @@ export class Inventory {
         slot.setAttribute('aria-label', `${item.name} - Level ${item.level}`);
         
         // Event Listeners for click and hover interaction
-        slot.addEventListener('click', () => {
+        slot.addEventListener('click', (e) => {
           synth.playClick();
           this.game.addXP(50); // Small XP reward for inspecting skills
+
+          // Toggle tooltip on mobile/desktop tap
+          if (this.activeTooltip) {
+            const isCurrentlyShown = this.activeTooltip.style.display === 'block';
+            const isActiveItem = this.activeTooltip.dataset.activeItem === item.id;
+
+            if (isCurrentlyShown && isActiveItem) {
+              this.hideTooltip();
+            } else {
+              this.showTooltip(item, e);
+              this.activeTooltip.dataset.activeItem = item.id;
+            }
+          }
+          e.stopPropagation(); // Prevent document listener from instantly hiding it
         });
 
         slot.addEventListener('mouseenter', (e) => {
           this.showTooltip(item, e);
+          if (this.activeTooltip) {
+            this.activeTooltip.dataset.activeItem = item.id;
+          }
         });
 
         slot.addEventListener('mouseleave', () => {
@@ -237,6 +259,7 @@ export class Inventory {
   }
 
   destroy() {
+    document.removeEventListener('click', this.docClickListener);
     if (this.activeTooltip) {
       this.activeTooltip.remove();
     }
