@@ -73,7 +73,8 @@ export class Terminal {
 
       case '/about':
         this.appendLine('Nattachai Atchariyakul | Cyber Security Specialist & Full Stack Engineer', 'text-green');
-        this.appendLine('Vulnerability assessor, threat hunter, and full-stack software engineer at the National Cyber Security Agency (NCSA) of Thailand. Champion of DevSecOps pipelines and robust defensive architectures.');
+        this.appendLine('Vulnerability assessor, threat hunter, and full-stack software engineer specializing in DevSecOps pipelines and robust defensive architectures. Available for private consulting and secure freelancing.');
+        this.appendLine('Personal Contact Email: <span class="text-cyan">nattachaiatc@gmail.com</span>');
         this.appendLine('Core Focus: Threat Intelligence, proactive threat hunting, networks hardening, and secure API microservices orchestration.');
         break;
 
