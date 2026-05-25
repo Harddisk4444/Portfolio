@@ -24,6 +24,7 @@ interface Certificate {
   description: string;
   image?: string;  // Must start with ./assets/... to match Vite base: './'
   verifyUrl: string;
+  spineLabel?: string;
 }
 
 // ── Projects (Quest Cards) ────────────────────────────────────────────────────
@@ -51,72 +52,300 @@ const QUESTS_DB: Quest[] = [
   }
 ];
 
-// ── Certificates (4 fully annotated) ─────────────────────────────────────────
+// ── Certificates (29 fully annotated) ─────────────────────────────────────────
 // RULE: ALL image paths MUST begin with ./assets/ — required by Vite base: './'
 const CERTS_DB: Certificate[] = [
   {
-    id: 'cert_cc',
+    id: 'cert_1',
+    title: 'AI Skills for All',
+    issuer: 'Microsoft / LinkedIn',
+    date: '2024',
+    description: 'Validates foundational knowledge of artificial intelligence concepts, tools, and applications for diverse professional environments.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/AI Skills for All - 2024.jpg',
+    spineLabel: 'AI-ALL'
+  },
+  {
+    id: 'cert_2',
+    title: 'Assess for Success: Marketing Analytics and Measurement',
+    issuer: 'Google',
+    date: '2023',
+    description: 'Competency in digital marketing analytics, key performance indicators (KPIs), and data-driven strategy optimization.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Assess for Success Marketing Analytics and Measurement - 2023.jpg',
+    spineLabel: 'MKTG-ANL'
+  },
+  {
+    id: 'cert_3',
+    title: 'Attract and Engage Customers with Digital Marketing',
+    issuer: 'Google',
+    date: '2023',
+    description: 'Covers Search Engine Optimization (SEO), Search Engine Marketing (SEM), and customer attraction strategies.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Attract and Engage Customers with Digital Marketing - 2023.jpg',
+    spineLabel: 'DIGI-MKT'
+  },
+  {
+    id: 'cert_4',
+    title: 'Basic Cybersecurity',
+    issuer: 'CSDC / CIS',
+    date: '2023',
+    description: 'Demonstrates essential knowledge in threat modeling, secure passwords, data privacy, and safe computing practices.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Basic Cybersecurity - 2023.jpg',
+    spineLabel: 'CYBER'
+  },
+  {
+    id: 'cert_5',
+    title: 'Cooperative & Work-Integrated Education (CWIE)',
+    issuer: 'CWIE Association',
+    date: '2024',
+    description: 'Certifies professional readiness, standards-aligned workplace training, and industry-academic integrated projects.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/CWIE - 2024.jpg',
+    spineLabel: 'CWIE'
+  },
+  {
+    id: 'cert_6',
+    title: 'AI for Smart Office',
+    issuer: 'Smart Academy',
+    date: '2026',
+    description: 'Validates expertise in using generative AI tools to streamline administrative operations, automate documentation, and optimize office tasks.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Certificate_for_AI_for_Smart_Office - 2026.jpg',
+    spineLabel: 'SMART-AI'
+  },
+  {
+    id: 'cert_7',
+    title: 'Certified Cybersecurity Educator Professional (CCEP)',
+    issuer: 'NCSA',
+    date: '2025',
+    description: 'Validates capabilities to educate academic and corporate entities on modern cyber threat protection and response frameworks.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Certified Cybersecurity Educator Professional (CCEP) - 2025.jpg',
+    spineLabel: 'CCEP'
+  },
+  {
+    id: 'cert_8',
     title: 'ISC2 Certified in Cybersecurity (CC)',
     issuer: 'ISC2',
-    date: '2025',
-    description: 'Validates deep mastery of foundational security principles, incident handling, access control, and network security concepts.\n\nDomains: Security Principles · Business Continuity & DR · Access Controls · Network Security & Operations',
+    date: '2024',
+    description: 'Demonstrates entry-level mastery of foundational security principles, incident handling, access control, and network security concepts.',
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: './assets/images/badges/certified-in-cybersecurity-cc.png'
+    image: './assets/images/certificates/Certified in Cybersecurity (CC)- 2024.jpg',
+    spineLabel: 'ISC2-CC'
   },
   {
-    id: 'cert_secplus',
-    title: 'CompTIA Security+',
-    issuer: 'CompTIA',
-    date: '2025',
-    description: 'Validates core knowledge required to execute essential security functions and pursue an active career in cybersecurity operations and DevSecOps engineering.\n\nDomains: Attacks & Threats · Architecture & Secure Design · Implementation · Governance, Risk & Compliance',
+    id: 'cert_9',
+    title: 'Cybersecurity Foundation Course',
+    issuer: 'NCSA',
+    date: '2024',
+    description: 'Covers fundamentals of system security, secure architecture, and tactical network defense mechanisms.',
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: './assets/images/certificates/1240867619970528.jpg'
+    image: './assets/images/certificates/Cybersecurity Foundation Course - 2024.jpg',
+    spineLabel: 'CS-FOUND'
   },
   {
-    id: 'cert_google',
-    title: 'Google Cybersecurity Certificate',
-    issuer: 'Google / Coursera',
-    date: '2025',
-    description: 'Verified competence in SIEM tools, intrusion detection, and Python automation for security operations.\n\nTools: Python · Linux OS · SQL · Chronicle & Splunk SIEM · Wireshark',
+    id: 'cert_10',
+    title: 'Digital Forensics Essentials',
+    issuer: 'EC-Council',
+    date: '2023',
+    description: 'Validates core concepts of digital forensics, evidence acquisition, file system analysis, and incident investigations.',
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: './assets/images/certificates/1240867623303861.jpg'
+    image: './assets/images/certificates/Digital Forensics Essentials - 2023.jpg',
+    spineLabel: 'DFE'
   },
   {
-    id: 'cert_ejpt',
-    title: 'eLearnSecurity Junior Penetration Tester (eJPT)',
-    issuer: 'eLearnSecurity / INE',
-    date: '2025',
-    description: 'Validates hands-on capabilities in penetration testing, network assessment, web app exploits, and offensive security methodologies.\n\nSkills: IP Routing · Network Pivoting · Vulnerability Assessment · Metasploit & Nmap · Web App Pentesting',
+    id: 'cert_11',
+    title: 'Digital Government Act Certification',
+    issuer: 'DGA',
+    date: '2026',
+    description: 'Demonstrates thorough understanding of public sector governance, legal frameworks, and digital service standards in Thailand.',
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: './assets/images/certificates/1240867703303853.jpg'
+    image: './assets/images/certificates/Digital Government Act - 2026.jpg',
+    spineLabel: 'DGA-ACT'
+  },
+  {
+    id: 'cert_12',
+    title: 'DownUnderCTF Competitor',
+    issuer: 'DUCTF',
+    date: '2023',
+    description: 'Recognizes participation and solving of complex challenges in reverse engineering, cryptography, web exploitation, and pwn.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/DownUnderCTF - 2023.jpg',
+    spineLabel: 'DUCTF'
+  },
+  {
+    id: 'cert_13',
+    title: 'Ethical Hacking Essentials',
+    issuer: 'EC-Council',
+    date: '2023',
+    description: 'Validates basic capability in network assessment, password cracking, web exploits, and system penetration testing.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Ethical Hacking Essentials - 2023.jpg',
+    spineLabel: 'EHE'
+  },
+  {
+    id: 'cert_14',
+    title: 'Foundations of Digital Marketing and E-commerce',
+    issuer: 'Google',
+    date: '2023',
+    description: 'Google Professional Certificate course validating baseline concepts of digital marketing channels and online sales models.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Foundations of Digital Marketing and E-commerce - 2023.jpg',
+    spineLabel: 'MKTG-FND'
+  },
+  {
+    id: 'cert_15',
+    title: 'From Likes to Leads: Interact with Customers Online',
+    issuer: 'Google',
+    date: '2023',
+    description: 'Focuses on strategic social media marketing campaigns, organic engagement metrics, and social customer support.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/From Likes to Leads Interact with Customers Online - 2023.jpg',
+    spineLabel: 'LKS-LEAD'
+  },
+  {
+    id: 'cert_16',
+    title: 'IC3 GS6 Level 1 Certification',
+    issuer: 'Certiport',
+    date: '2023',
+    description: 'Certifies fundamental global digital literacy standards, including computing systems, network connection, and digital citizenship.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/IC3 GS6 LEVEL1 - 2023.jpg',
+    spineLabel: 'IC3-GS6'
+  },
+  {
+    id: 'cert_17',
+    title: 'Make the Sale: Build, Launch, and Manage Ecommerce Stores',
+    issuer: 'Google',
+    date: '2023',
+    description: 'Covers design and management of online storefronts, Shopify integration, inventory flows, and conversion metrics.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Make the Sale Build, Launch, and Manage Ecommerce Stores - 2023.jpg',
+    spineLabel: 'ECOMM'
+  },
+  {
+    id: 'cert_18',
+    title: 'Microsoft 365 Copilot Practitioner',
+    issuer: 'Microsoft',
+    date: '2024',
+    description: 'Certifies operational competence in prompt engineering, administrative workflows, and leveraging Copilot AI tools.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Microsoft 365 Copilot - 2024.jpg',
+    spineLabel: 'M365-COP'
+  },
+  {
+    id: 'cert_19',
+    title: 'Network Defense Essentials',
+    issuer: 'EC-Council',
+    date: '2023',
+    description: 'Validates foundational network security skills, including firewall tuning, secure protocol configurations, and IDPS monitoring.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Network Defense Essentials - 2023.jpg',
+    spineLabel: 'NDE'
+  },
+  {
+    id: 'cert_20',
+    title: 'PSRU Cyber Hackathon 2023 (Team Achievement)',
+    issuer: 'PSRU',
+    date: '2023',
+    description: 'Recognizes team excellence and complex vulnerability exploitation challenge resolution during the PSRU Cyber Hackathon.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/PSRU CYBER HACKATHON 2023 - 02.jpg',
+    spineLabel: 'PSRU-H02'
+  },
+  {
+    id: 'cert_21',
+    title: 'PSRU Cyber Hackathon 2023',
+    issuer: 'PSRU',
+    date: '2023',
+    description: 'Recognizes competitor role and successful defense simulations in PSRU\'s annual cybersecurity hackathon.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/PSRU CYBER HACKATHON 2023.jpg',
+    spineLabel: 'PSRU-H23'
+  },
+  {
+    id: 'cert_22',
+    title: 'Satisfaction Guaranteed: Customer Loyalty Online',
+    issuer: 'Google',
+    date: '2023',
+    description: 'Covers customer relationship management, digital service performance, post-sale workflows, and NPS metric tracking.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Satisfaction Guaranteed Develop Customer Loyalty Online - 2023.jpg',
+    spineLabel: 'LOYALTY'
+  },
+  {
+    id: 'cert_23',
+    title: 'Thailand Cyber Top Talent 2024',
+    issuer: 'NCSA',
+    date: '2024',
+    description: 'Recognizes high CTF proficiency and cybersecurity capabilities in the Thailand Cyber Top Talent competition organized by NCSA.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Thailand Cyber Top Talent 2024.jpg',
+    spineLabel: 'TCTT-24'
+  },
+  {
+    id: 'cert_24',
+    title: 'Thailand\'s National Cyber Exercise 2024',
+    issuer: 'NCSA',
+    date: '2024',
+    description: 'Recognizes active participation in the nationwide simulation of cyber incident responses, defense procedures, and collaborative mitigation.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Thailand\'s National Cyber Exercise 2024.jpg',
+    spineLabel: 'NCX-2024'
+  },
+  {
+    id: 'cert_25',
+    title: 'Thailand\'s National Cyber Exercise 2025',
+    issuer: 'NCSA',
+    date: '2025',
+    description: 'Active participant in nationwide tabletop exercises and simulated threat responses for critical information infrastructure.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Thailand\'s National Cyber Exercise 2025 (NCX 2025).jpg',
+    spineLabel: 'NCX-2025'
+  },
+  {
+    id: 'cert_26',
+    title: 'Think Outside the Inbox: Email Marketing',
+    issuer: 'Google',
+    date: '2023',
+    description: 'Google Professional Certificate course validating core techniques in designing automation flows, list splits, and A/B test setups.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Think Outside the Inbox Email Marketing - 2023.jpg',
+    spineLabel: 'EMAIL-MK'
+  },
+  {
+    id: 'cert_27',
+    title: 'Threat Hunting Endgame Workshop',
+    issuer: 'NCSA',
+    date: '2025',
+    description: 'Advanced endpoint security workshop validating memory analysis, registry auditing, and indicators of compromise (IoC) tracking.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/Threat Hunting Endgame Workshop 2025.jpg',
+    spineLabel: 'ENDGAME'
+  },
+  {
+    id: 'cert_28',
+    title: 'Digital Forensics & Incident Response',
+    issuer: 'SecOps',
+    date: '2024',
+    description: 'Demonstrates mastery in rapid threat containment, event reconstruction, forensic log parsing, and live endpoint triage.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/dfir - 2024.jpg',
+    spineLabel: 'DFIR'
+  },
+  {
+    id: 'cert_29',
+    title: 'Digital Forensics & Incident Response (Advanced)',
+    issuer: 'SecOps',
+    date: '2024',
+    description: 'Advanced competencies in root-cause analysis, complex registry forensication, and malware execution tracking.',
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: './assets/images/certificates/dfir - 2024_02.jpg',
+    spineLabel: 'DFIR-ADV'
   }
 ];
-
-// ── Remaining 26 scans — dynamically hydrated ─────────────────────────────────
-// IMPORTANT: `./assets/...` prefix is mandatory for Vite base: './' / GitHub Pages
-const EXTRA_CERT_FILES: string[] = [
-  '1240867739970516.jpg', '1240867766637180.jpg', '1240867843303839.jpg',
-  '1240867926637164.jpg', '1247689022621721.jpg', '1329827694407853.jpg',
-  '1329827757741180.jpg', '1330780830979206.jpg', '1336439560413333.jpg',
-  '1366693534054602.jpg', '1366693537387935.jpg', '1366693550721267.jpg',
-  '1404795026911119.jpg', '1430153367708618.jpg', '1443775599679728.jpg',
-  '1570172617040025.jpg', '1573339500056670.jpg', '1585293075527979.jpg',
-  '1609409406449679.jpg', '1609409433116343.jpg', '1663229381067681.jpg',
-  '1860383841352233.jpg', '1882309245826359.jpg', '1933322450725038.jpg',
-  '1933954700661813.jpg', '1981712415886041.jpg',
-];
-
-EXTRA_CERT_FILES.forEach((filename, idx) => {
-  CERTS_DB.push({
-    id: `cert_extra_${idx + 1}`,
-    title: `Security Credential #${idx + 5}`,
-    issuer: 'Verified Academy',
-    date: '2024–2025',
-    description: 'An officially verified credential demonstrating achievement and competency in cybersecurity, networking, or information technology disciplines.\n\nClick the scan to open at full resolution.',
-    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: `./assets/images/certificates/${filename}` // MUST keep ./  prefix
-  });
-});
 
 // ── Component ─────────────────────────────────────────────────────────────────
 export class QuestBook {
@@ -251,7 +480,7 @@ export class QuestBook {
       book.setAttribute('tabindex', '0');
       book.setAttribute('aria-label', `Inspect credential: ${cert.title}`);
 
-      const spineLabel = cert.issuer.split(' ')[0].substring(0, 8);
+      const spineLabel = (cert.spineLabel || cert.issuer.split(' ')[0]).substring(0, 8).toUpperCase();
 
       book.innerHTML = `
         <div class="certificate-book-inner">
