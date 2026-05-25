@@ -72,18 +72,18 @@ export class Terminal {
         break;
 
       case '/about':
-        this.appendLine('GGSK | Senior DevSecOps Architect', 'text-green');
-        this.appendLine('Security-by-Design champion. Specializes in multi-cluster cloud firewalls, zero-trust token gateways, and sub-3 minute CI/CD container vulnerability scanning pipelines.');
-        this.appendLine('Target Core Focus: Maximum performance, unyielding resilience, and absolute security automation.');
+        this.appendLine('Nattachai Atchariyakul | Cyber Security Specialist & Full Stack Engineer', 'text-green');
+        this.appendLine('Vulnerability assessor, threat hunter, and full-stack software engineer at the National Cyber Security Agency (NCSA) of Thailand. Champion of DevSecOps pipelines and robust defensive architectures.');
+        this.appendLine('Core Focus: Threat Intelligence, proactive threat hunting, networks hardening, and secure API microservices orchestration.');
         break;
 
       case '/skills':
         this.appendLine('Equipped Technical Arsenals:', 'text-yellow');
-        this.appendLine('  - Kubernetes Trident (Enchanted V - Scale)');
-        this.appendLine('  - TypeScript Infinity Bow (Netherite IV - Type Safe)');
-        this.appendLine('  - Obsidian chestplate (Security V - Hardening)');
-        this.appendLine('  - Redstone Repeater Crossbow (CI/CD III - Speed)');
-        this.appendLine('  - Beacon of WAF Shielding (Zero-Trust protection)');
+        this.appendLine('  - Threat Intelligence Scope (Enchanted V - Surveillance)');
+        this.appendLine('  - Obsidian Tracker Bow (Netherite IV - Threat Hunting)');
+        this.appendLine('  - Command Block Analyzer (Emerald V - Threat Analysis)');
+        this.appendLine('  - Secure Aegis Firewall (Diamond V - Perimeter Defense)');
+        this.appendLine('  - Gemini Command Wand (Magical IV - AI Prompting)');
         break;
 
       case '/quests':

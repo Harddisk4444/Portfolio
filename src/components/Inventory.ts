@@ -19,103 +19,103 @@ interface SkillItem {
 
 const SKILLS_DB: SkillItem[] = [
   {
-    id: 'k8s',
-    name: 'Kubernetes Trident',
+    id: 'threat_intel',
+    name: 'Threat Intelligence Scope',
     level: 95,
+    quality: 'Enchanted Grade',
+    type: 'Magical Artifact',
+    icon: '👁️',
+    stats: ['+95% IoC Detection', '+93% Threat Feeds Integration'],
+    enchantments: ['Active Surveillance V', 'Adversary Profiling IV'],
+    description: 'A glowing cyber lens that scans threat feeds globally, identifying adversary campaigns and indicators before intrusion attempts are made.'
+  },
+  {
+    id: 'threat_hunting',
+    name: 'Obsidian Tracker Bow',
+    level: 92,
+    quality: 'Netherite Grade',
+    type: 'Ranged Weapon',
+    icon: '🏹',
+    stats: ['+92% Stealth Threat Tracking', '+90% Post-Breach Detection'],
+    enchantments: ['MITRE Attack Alignment V', 'Anomaly Identification IV'],
+    description: 'Fires tracking beacons into system processes, isolating stealthy persistent threats that bypass standard perimeter walls.'
+  },
+  {
+    id: 'threat_analysis',
+    name: 'Command Block Analyzer',
+    level: 94,
+    quality: 'Emerald Grade',
+    type: 'Intelligence Tool',
+    icon: '💻',
+    stats: ['+94% Malware Behavior Extraction', '+95% Attack Vector Profiling'],
+    enchantments: ['Reverse Engineering V', 'Secure Sandbox IV'],
+    description: 'A powerful logic terminal that extracts behavioral vectors and reverse-engineers binary payloads securely without risking system integrity.'
+  },
+  {
+    id: 'networks',
+    name: 'Secure Aegis Firewall',
+    level: 90,
+    quality: 'Diamond Grade',
+    type: 'Defense Shield',
+    icon: '🛡️',
+    stats: ['+90% Perimeter Defense', '+95% Encrypted Flow Tracking'],
+    enchantments: ['Stateful Packet Inspection V', 'DNSSEC Fortification IV'],
+    description: 'A pristine grid barrier that inspects stateful packets, blocks abnormal traffic, and establishes secure network topologies.'
+  },
+  {
+    id: 'ai_prompt',
+    name: 'Gemini Command Wand',
+    level: 88,
+    quality: 'Magical Artifact',
+    type: 'Spell Wand',
+    icon: '🪄',
+    stats: ['+88% Dynamic LLM Prompting', '+92% Context Extraction'],
+    enchantments: ['Few-Shot Orchestration V', 'System Role Guardrails IV'],
+    description: 'A mystical wand that commands large language models, crafting highly optimized prompt frames and context flows.'
+  },
+  {
+    id: 'k8s',
+    name: 'Kubernetes Scaling Trident',
+    level: 93,
     quality: 'Enchanted Grade',
     type: 'Siege Weapon',
     icon: '🔱',
-    stats: ['+95% Pod Orchestration', '+98% Auto-healing Scalability'],
+    stats: ['+93% Pod Orchestration', '+95% Auto-healing Scalability'],
     enchantments: ['Multi-Cluster Orchestration V', 'Zero-Downtime Deployment IV'],
-    description: 'A legendary multi-pronged weapon capable of summoning and balancing massive clusters of high-availability containers.'
+    description: 'Balances container instances dynamically, ensuring high availability and orchestrating multi-region nodes.'
   },
   {
     id: 'ts',
     name: 'TypeScript Infinity Bow',
-    level: 96,
-    quality: 'Netherite Grade',
+    level: 95,
+    quality: 'Diamond Grade',
     type: 'Ranged Weapon',
     icon: '🏹',
-    stats: ['+96% Type Integrity', '+95% Code Safety Compile'],
+    stats: ['+95% Type Integrity', '+94% Compile Safety Guard'],
     enchantments: ['Strict Type Casting V', 'Zero-Null Exception IV'],
-    description: 'Fires high-speed secure arrows that lock type definitions permanently. Guarantees compile-time validation and zero runtime crashes.'
+    description: 'Fires type definitions that eliminate standard runtime defects, locking variables into immutable mathematical states.'
   },
   {
     id: 'docker',
-    name: 'Docker Sealed Box',
+    name: 'Docker Sealed Obsidian Box',
     level: 90,
-    quality: 'Diamond Grade',
+    quality: 'Emerald Grade',
     type: 'Defense Gear',
     icon: '📦',
-    stats: ['+90% Layer Optimization', '+92% Container Hardening'],
-    enchantments: ['Obsidian Container Isolation V', 'Alpine Micro-Image IV'],
-    description: 'Seals complex microservices packages securely inside highly optimized, pristine sandbox layers to prevent host intrusion.'
+    stats: ['+90% Layer Optimization', '+92% Container Isolation'],
+    enchantments: ['Namespace Isolation V', 'Alpine Micro-Image IV'],
+    description: 'Constructs pristine sandbox containers, minimizing execution footprint and isolating namespace permissions securely.'
   },
   {
     id: 'python',
-    name: 'Python Command Blade',
-    level: 92,
+    name: 'Python Poison Dagger',
+    level: 91,
     quality: 'Emerald Grade',
     type: 'Melee Weapon',
     icon: '🗡️',
-    stats: ['+92% Script Automation', '+90% API Bite Rate'],
+    stats: ['+91% Scripting Speed', '+90% API Bite Rate'],
     enchantments: ['Deep Machine Library V', 'Rapid Socket Scripting IV'],
-    description: 'A sharp, rapid blade that scripts automation pipelines and parses custom protocols with minimal latency.'
-  },
-  {
-    id: 'go',
-    name: 'Go Iron Pickaxe',
-    level: 85,
-    quality: 'Enchanted Grade',
-    type: 'Gathering Tool',
-    icon: '⛏️',
-    stats: ['+85% Concurrency Mining', '+90% Execution Speed'],
-    enchantments: ['Goroutine Thread Multiplier V', 'Garbage Cleanse IV'],
-    description: 'A lightning-fast pickaxe specialized in digging high-throughput microservices structures with concurrent goroutines.'
-  },
-  {
-    id: 'linux',
-    name: 'Obsidian chestplate',
-    level: 94,
-    quality: 'Netherite Grade',
-    type: 'Defense Armor',
-    icon: '👕',
-    stats: ['+94% Host System Hardening', '+96% Privilege Isolation'],
-    enchantments: ['Least Privilege Aegis V', 'Kernel Lockout IV'],
-    description: 'Forged chestplate that isolates systems, shielding host kernels and isolating namespaces from malicious breach attempts.'
-  },
-  {
-    id: 'terraform',
-    name: 'Terraform Manifest Scroll',
-    level: 88,
-    quality: 'Emerald Grade',
-    type: 'Magical Artifact',
-    icon: '📜',
-    stats: ['+88% Infrastructure Manifest', '+90% Repeatable State'],
-    enchantments: ['Declarative Build V', 'Multi-Provider Command IV'],
-    description: 'Instantly conjures complete cloud networks and container nodes by reciting reproducible HCL configuration scripts.'
-  },
-  {
-    id: 'cicd',
-    name: 'Redstone Repeater Crossbow',
-    level: 95,
-    quality: 'Enchanted Grade',
-    type: 'Ranged Weapon',
-    icon: '➿',
-    stats: ['+95% Pipeline Speed', '+98% Automated Security Audit'],
-    enchantments: ['Git Action Automatic V', 'CVE Scan Vulnerability IV'],
-    description: 'Fires automated triggers to lint, build, test, and scan codebases for security vulnerabilities on every push.'
-  },
-  {
-    id: 'security',
-    name: 'Beacon of WAF Shielding',
-    level: 93,
-    quality: 'Netherite Grade',
-    type: 'Defense Shield',
-    icon: '🛡️',
-    stats: ['+93% OWASP Top-10 Deflection', '+95% Zero-Trust Beacon'],
-    enchantments: ['Secure CSP Radiance V', 'Input Sanitization Protection IV'],
-    description: 'Radiates a persistent barrier that filters out malicious payloads and blocks XSS, SQLi, and unauthorized request vectors.'
+    description: 'A fast automation weapon that writes backend logic and scripts network sockets with minimal latency.'
   }
 ];
 

@@ -21,6 +21,7 @@ interface Certificate {
   date: string;
   pages: string[]; // Content segmented per page inside the Book & Quill UI
   verifyUrl: string;
+  image?: string; // Image path for certificate scan/badge
 }
 
 const QUESTS_DB: Quest[] = [
@@ -49,37 +50,52 @@ const QUESTS_DB: Quest[] = [
 
 const CERTS_DB: Certificate[] = [
   {
-    id: 'cert_cka',
-    title: 'Certified Kubernetes Administrator (CKA)',
-    issuer: 'The Linux Foundation',
+    id: 'cert_cc',
+    title: 'ISC2 Certified in Cybersecurity (CC)',
+    issuer: 'ISC2',
     date: '2025',
     pages: [
-      'Certified Kubernetes Administrator (CKA)\n\nThis enchanted tome validates the power to design, build, and orchestrate highly scalable multi-node container architectures.',
-      'Validated Skills:\n- Application Lifecycle Management\n- Installation, Configuration & Hardening\n- Cluster Maintenance & Backup\n- Logging, Monitoring & Networking'
+      'Certified in Cybersecurity (CC) by ISC2\n\nThis epic badge validates deep mastery of foundational security principles, incident handling, access control, and network security concepts.',
+      'Validated Domains:\n- Security Principles\n- Business Continuity (BC), Disaster Recovery (DR)\n- Access Controls Concepts\n- Network Security & Operations'
     ],
-    verifyUrl: 'https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/'
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: 'assets/images/badges/certified-in-cybersecurity-cc.png'
   },
   {
-    id: 'cert_vault',
-    title: 'HashiCorp Vault Associate',
-    issuer: 'HashiCorp',
+    id: 'cert_secplus',
+    title: 'CompTIA Security+',
+    issuer: 'CompTIA',
     date: '2025',
     pages: [
-      'HashiCorp Certified: Vault Associate\n\nValidates deep mastery of zero-trust secrets management, credential engines, encryption-as-a-service, and system authentication policies.',
-      'Secured Powers:\n- Secrets Engines Configuration\n- Access Control Policies (ACL)\n- Cryptographic Key Management\n- Least Privilege Identity Tokens'
+      'CompTIA Security+ Certification\n\nValidates the core knowledge required to execute essential security functions and pursue an active career in cybersecurity operations and DevSecOps engineering.',
+      'Fortified Domains:\n- Attacks, Threats & Vulnerabilities\n- Architecture & Secure Design\n- Implementation & Network Operations\n- Governance, Risk & Compliance'
     ],
-    verifyUrl: 'https://www.hashicorp.com/certification/vault-associate'
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: 'assets/images/certificates/cert_1.jpg'
   },
   {
-    id: 'cert_aws',
-    title: 'AWS Certified Security - Specialty',
-    issuer: 'Amazon Web Services',
-    date: '2024',
+    id: 'cert_google',
+    title: 'Google Cybersecurity Certificate',
+    issuer: 'Google / Coursera',
+    date: '2025',
     pages: [
-      'AWS Security - Specialty\n\nValidates the ability to construct hardened cloud perimeter architecture, web application firewalls (WAF), IAM trust policies, and secure logging structures.',
-      'Fortified Skills:\n- Perimeter Security & Cloud WAF\n- Cryptographic Key Rotation (KMS)\n- Identity Access Policies\n- Continuous Incident Response'
+      'Google Cybersecurity Professional\n\nThis enchanted tome marks verified competence in utilizing security information and event management (SIEM) tools, intrusion detection, and Python automation.',
+      'Secured Tools:\n- Python & Linux OS\n- SQL Database Querying\n- Chronicle & Splunk SIEM\n- Wireshark Network Packet Sniffing'
     ],
-    verifyUrl: 'https://aws.amazon.com/certification/certified-security-specialty/'
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: 'assets/images/certificates/cert_2.jpg'
+  },
+  {
+    id: 'cert_ejpt',
+    title: 'eLearnSecurity Junior Penetration Tester (eJPT)',
+    issuer: 'eLearnSecurity / INE',
+    date: '2025',
+    pages: [
+      'eLearnSecurity Certified Junior Penetration Tester (eJPT)\n\nValidates hands-on capabilities in penetration testing, network assessment, web application exploits, and offensive security methodologies.',
+      'Offensive Powers:\n- IP Routing & Network Pivoting\n- Vulnerability Assessment\n- Metasploit & Nmap Recon\n- Web App Penetration Exploiting'
+    ],
+    verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
+    image: 'assets/images/certificates/cert_3.jpg'
   }
 ];
 
@@ -217,6 +233,12 @@ export class QuestBook {
         <div class="book-pages-container">
           <div class="book-title">${sanitizeHTML(cert.title)}</div>
           <p class="book-content-text">${sanitizeHTML(pageContent).replace(/\n/g, '<br>')}</p>
+          ${this.activePage === totalPages - 1 && cert.image 
+            ? `<div style="display: flex; justify-content: center; margin-top: 15px;">
+                <img src="${cert.image}" alt="${sanitizeHTML(cert.title)}" style="max-height: 160px; max-width: 100%; border: 4px solid #8c6b4f; border-radius: 4px; box-shadow: 2px 2px 0 rgba(0,0,0,0.15);">
+               </div>` 
+            : ''
+          }
         </div>
         
         <div class="book-footer">
