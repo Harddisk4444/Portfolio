@@ -10,17 +10,16 @@ export class Terminal {
   private container: HTMLDivElement;
   private body: HTMLDivElement;
   private input: HTMLInputElement;
-  private modalContainer: HTMLDivElement;
   private game: GameManager;
 
-  constructor(containerId: string, bodyId: string, inputId: string, modalId: string, game: GameManager) {
+  constructor(containerId: string, bodyId: string, inputId: string, game: GameManager) {
     this.container = document.getElementById(containerId) as HTMLDivElement;
     this.body = document.getElementById(bodyId) as HTMLDivElement;
     this.input = document.getElementById(inputId) as HTMLInputElement;
-    this.modalContainer = document.getElementById(modalId) as HTMLDivElement;
     this.game = game;
 
     this.setupListeners();
+    this.setupInlineContactForm();
   }
 
   private setupListeners() {
@@ -37,6 +36,13 @@ export class Terminal {
     // Support clicking container to focus input
     this.container.addEventListener('click', () => {
       this.input.focus();
+    });
+  }
+
+  private setupInlineContactForm() {
+    const btnSubmit = document.getElementById('btn-scroll-submit');
+    btnSubmit?.addEventListener('click', () => {
+      this.submitScrollForm();
     });
   }
 
@@ -61,7 +67,7 @@ export class Terminal {
         this.appendLine('  /about    - Inspect DevSecOps background profile');
         this.appendLine('  /skills   - Check currently equipped skill weapons');
         this.appendLine('  /quests   - View outstanding professional projects');
-        this.appendLine('  /contact  - Summon the encrypted contact scroll sheet');
+        this.appendLine('  /contact  - Focus the encrypted contact manifest scroll');
         this.appendLine('  /hack     - Attempt matrix grid overflow exploit');
         this.appendLine('  /clear    - Purge terminal buffer logs');
         this.appendLine('  /self-destruct - [CAUTION] Execute critical test script');
@@ -95,10 +101,19 @@ export class Terminal {
         break;
 
       case '/contact':
-        this.appendLine('[SYSTEM] Summoning Scroll of Encryption...', 'text-green');
-        setTimeout(() => {
-          this.openContactScroll();
-        }, 500);
+        this.appendLine('[SYSTEM] Directing coordinate focus to the Quest Manifest Scroll...', 'text-green');
+        const scrollTarget = document.getElementById('contact-scroll');
+        if (scrollTarget) {
+          scrollTarget.scrollIntoView({ behavior: 'smooth' });
+          setTimeout(() => {
+            const inputName = document.getElementById('scroll-name') as HTMLInputElement;
+            inputName?.focus();
+            scrollTarget.classList.add('pulse-highlight');
+            setTimeout(() => {
+              scrollTarget.classList.remove('pulse-highlight');
+            }, 1500);
+          }, 4000);
+        }
         break;
 
       case '/hack':
@@ -143,47 +158,12 @@ export class Terminal {
     }, 2000);
   }
 
-  private openContactScroll() {
-    this.modalContainer.innerHTML = `
-      <div class="book-modal" style="background-color: #f1ebd4; border: 10px solid #8c6b4f; height: 500px; width: 440px; color: #2d261e;">
-        <span class="book-modal-close" id="btn-scroll-close" style="color: #8c6b4f;">&times;</span>
-        
-        <div class="book-pages-container" style="display:flex; flex-direction:column; gap:12px;">
-          <div class="book-title" style="color: #8c2d19; font-size:16px;">QUEST SCROLL: CONTACT SHEET</div>
-          
-          <label style="font-family: var(--font-title); font-size:10px; margin-top:5px;">Your Cryptic Name:</label>
-          <input type="text" id="scroll-name" style="background: rgba(0,0,0,0.05); border: 2px solid #8c6b4f; font-family: var(--font-body); font-size:18px; padding: 4px;" autocomplete="off">
-          
-          <label style="font-family: var(--font-title); font-size:10px;">Safe Delivery Mail:</label>
-          <input type="email" id="scroll-email" style="background: rgba(0,0,0,0.05); border: 2px solid #8c6b4f; font-family: var(--font-body); font-size:18px; padding: 4px;" autocomplete="off">
-          
-          <label style="font-family: var(--font-title); font-size:10px;">Secure Transmission Data:</label>
-          <textarea id="scroll-message" rows="4" style="background: rgba(0,0,0,0.05); border: 2px solid #8c6b4f; font-family: var(--font-body); font-size:18px; padding: 4px; resize:none;"></textarea>
-        </div>
-        
-        <div class="book-footer">
-          <div></div>
-          <button id="btn-scroll-submit" class="btn-minecraft" style="width: auto; font-size: 10px; padding: 8px 16px;">SEND SCROLL</button>
-        </div>
-      </div>
-    `;
-
-    this.modalContainer.classList.remove('hidden');
-
-    document.getElementById('btn-scroll-close')?.addEventListener('click', () => {
-      synth.playClick();
-      this.modalContainer.classList.add('hidden');
-    });
-
-    document.getElementById('btn-scroll-submit')?.addEventListener('click', () => {
-      this.submitScrollForm();
-    });
-  }
-
   private submitScrollForm() {
     const nameEl = document.getElementById('scroll-name') as HTMLInputElement;
     const emailEl = document.getElementById('scroll-email') as HTMLInputElement;
     const msgEl = document.getElementById('scroll-message') as HTMLTextAreaElement;
+
+    if (!nameEl || !emailEl || !msgEl) return;
 
     const name = nameEl.value.trim();
     const email = emailEl.value.trim();
@@ -207,11 +187,15 @@ export class Terminal {
     const cleanMsg = sanitizeHTML(message);
 
     synth.playLevelUp();
-    this.modalContainer.classList.add('hidden');
     this.appendLine(`[SUCCESS] Transmission from ${cleanName} sent to origin! Coordinates: ${cleanEmail}<br>Message: "${cleanMsg}"`, 'text-green');
     
     // Reward XP!
     this.game.addXP(200);
+
+    // Reset Form Fields
+    nameEl.value = '';
+    emailEl.value = '';
+    msgEl.value = '';
 
     // Show achievement toast
     const toaster = document.getElementById('advancement-toaster') as HTMLDivElement;

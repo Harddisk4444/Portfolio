@@ -102,18 +102,12 @@ const CERTS_DB: Certificate[] = [
 export class QuestBook {
   private questsContainer: HTMLDivElement;
   private certsContainer: HTMLDivElement;
-  private modalContainer: HTMLDivElement;
   private toasterElement: HTMLDivElement;
   private game: GameManager;
 
-  // Active book page state
-  private activeCert: Certificate | null = null;
-  private activePage: number = 0;
-
-  constructor(questsId: string, certsId: string, modalId: string, toasterId: string, game: GameManager) {
+  constructor(questsId: string, certsId: string, toasterId: string, game: GameManager) {
     this.questsContainer = document.getElementById(questsId) as HTMLDivElement;
     this.certsContainer = document.getElementById(certsId) as HTMLDivElement;
-    this.modalContainer = document.getElementById(modalId) as HTMLDivElement;
     this.toasterElement = document.getElementById(toasterId) as HTMLDivElement;
     this.game = game;
 
@@ -185,101 +179,50 @@ export class QuestBook {
     this.certsContainer.innerHTML = '';
     
     CERTS_DB.forEach((cert) => {
-      const book = document.createElement('div');
-      book.className = 'certificate-book enchanted';
-      book.id = cert.id;
-      book.setAttribute('aria-label', `View ${cert.title}`);
+      const bookContainer = document.createElement('div');
+      bookContainer.className = 'certificate-book-container';
+      bookContainer.id = `container-${cert.id}`;
+      bookContainer.setAttribute('aria-label', `Verify ${cert.title}`);
       
-      // Simple spine label layout
-      book.innerHTML = `
-        <div class="book-spine-text">${cert.issuer.split(' ')[0]}</div>
+      const spineLabel = cert.issuer.split(' ')[0];
+
+      bookContainer.innerHTML = `
+        <div class="certificate-book-inner">
+          <!-- Book Front Cover -->
+          <div class="book-front">
+            <div class="book-spine-text" style="font-family: var(--font-title); font-size: 8px; color: var(--color-mc-text-yellow); writing-mode: vertical-rl; text-orientation: mixed; pointer-events: none;">
+              ${spineLabel}
+            </div>
+          </div>
+          <!-- Book Back Cover / Credentials Details -->
+          <div class="book-back">
+            <div class="book-back-spine">${sanitizeHTML(cert.title.substring(0, 20))}...</div>
+            <div style="font-size: 7px; color: #5a3c1e; margin: 4px 0; text-align: center;">${sanitizeHTML(cert.issuer)} (${cert.date})</div>
+            <a href="${cert.verifyUrl}" target="_blank" class="btn-book-action" style="text-decoration:none;">VERIFY</a>
+          </div>
+        </div>
       `;
 
-      book.addEventListener('click', () => {
-        this.openBook(cert);
+      // Flip card on tap/click
+      bookContainer.addEventListener('click', (e) => {
+        // Prevent click events inside the links from re-flipping
+        if ((e.target as HTMLElement).tagName === 'A' || (e.target as HTMLElement).classList.contains('btn-book-action')) {
+          return;
+        }
+
+        synth.playClick();
+        bookContainer.classList.toggle('flipped');
+
+        // Grant XP for discovering/flipping verified credentials the first time!
+        const state = this.game.getState();
+        if (!state.readCerts.includes(cert.id)) {
+          this.game.readCert(cert.id);
+          this.triggerAdvancementToast('✨', `Credential Discovered: ${cert.title}`);
+        }
       });
 
-      this.certsContainer.appendChild(book);
+      this.certsContainer.appendChild(bookContainer);
     });
-  }
-
-  private openBook(cert: Certificate) {
-    synth.playClick();
-    this.activeCert = cert;
-    this.activePage = 0;
-
-    // Grant XP for reading the verified credentials
-    const state = this.game.getState();
-    if (!state.readCerts.includes(cert.id)) {
-      this.game.readCert(cert.id);
-      this.triggerAdvancementToast('✨', `Challenge Complete! [${cert.title}]`);
-    }
-
-    this.renderBookModal();
-    this.modalContainer.classList.remove('hidden');
-  }
-
-  private renderBookModal() {
-    if (!this.activeCert) return;
-
-    const cert = this.activeCert;
-    const pageContent = cert.pages[this.activePage] || '';
-    const totalPages = cert.pages.length;
-
-    this.modalContainer.innerHTML = `
-      <div class="book-modal">
-        <span class="book-modal-close" id="btn-book-close">&times;</span>
-        
-        <div class="book-pages-container">
-          <div class="book-title">${sanitizeHTML(cert.title)}</div>
-          <p class="book-content-text">${sanitizeHTML(pageContent).replace(/\n/g, '<br>')}</p>
-          ${this.activePage === totalPages - 1 && cert.image 
-            ? `<div style="display: flex; justify-content: center; margin-top: 15px;">
-                <img src="${cert.image}" alt="${sanitizeHTML(cert.title)}" style="max-height: 160px; max-width: 100%; border: 4px solid #8c6b4f; border-radius: 4px; box-shadow: 2px 2px 0 rgba(0,0,0,0.15);">
-               </div>` 
-            : ''
-          }
-        </div>
-        
-        <div class="book-footer">
-          <button id="btn-book-prev" class="btn-book-nav" ${this.activePage === 0 ? 'style="visibility: hidden;"' : ''}>&lt;</button>
-          
-          <span class="book-page-indicator">PAGE ${this.activePage + 1} OF ${totalPages}</span>
-          
-          ${this.activePage === totalPages - 1 
-            ? `<a href="${cert.verifyUrl}" target="_blank" class="btn-book-nav" style="text-decoration:none; text-align:center;">VERIFY</a>` 
-            : `<button id="btn-book-next" class="btn-book-nav">&gt;</button>`
-          }
-        </div>
-      </div>
-    `;
-
-    // Hook up modal closing and navigation
-    document.getElementById('btn-book-close')?.addEventListener('click', () => {
-      this.closeBook();
-    });
-
-    document.getElementById('btn-book-prev')?.addEventListener('click', () => {
-      synth.playClick();
-      if (this.activePage > 0) {
-        this.activePage--;
-        this.renderBookModal();
-      }
-    });
-
-    document.getElementById('btn-book-next')?.addEventListener('click', () => {
-      synth.playClick();
-      if (this.activeCert && this.activePage < this.activeCert.pages.length - 1) {
-        this.activePage++;
-        this.renderBookModal();
-      }
-    });
-  }
-
-  private closeBook() {
-    synth.playClick();
-    this.modalContainer.classList.add('hidden');
-    this.activeCert = null;
   }
 
   private triggerAdvancementToast(icon: string, text: string) {

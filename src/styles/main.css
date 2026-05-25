@@ -745,3 +745,225 @@ body {
     right: 0px;
   }
 }
+
+/* ==========================================================================
+   6. Premium One-Page Transitions, 3D Transforms, & Parchment Scrolls
+   ========================================================================== */
+
+/* Smooth Scroll down indicator in Hero */
+.scroll-down-indicator {
+  position: absolute;
+  bottom: 25px;
+  animation: bounceIndicator 0.8s infinite alternate cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  cursor: pointer;
+  z-index: 10;
+}
+.arrow-pixel {
+  font-size: 28px;
+  color: var(--color-cyber-blue);
+  text-shadow: 2px 2px 0px #000;
+  display: block;
+}
+@keyframes bounceIndicator {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(12px) scale(1.1); }
+}
+
+/* Dynamic Inline Skills Details Panel */
+.skills-details-panel {
+  width: 100%;
+  max-width: 580px;
+  background-color: rgba(30, 9, 42, 0.95);
+  border: 4px solid #2e0854;
+  padding: 20px;
+  color: var(--color-text-bright);
+  font-family: var(--font-body);
+  box-shadow: 0 0 15px rgba(169, 132, 229, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 1;
+  transform: translateY(0);
+}
+.skills-details-panel.hidden-details {
+  opacity: 0;
+  transform: translateY(10px);
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border-width: 0;
+}
+.details-placeholder {
+  color: var(--color-text-muted);
+  font-style: italic;
+  text-align: center;
+  font-size: 18px;
+}
+
+/* 3D Bookshelf Flip Cards */
+.certificate-book-container {
+  perspective: 1000px;
+  width: 80px;
+  height: 110px;
+  cursor: pointer;
+  margin: 5px auto;
+  position: relative;
+}
+.certificate-book-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+.certificate-book-container.flipped .certificate-book-inner {
+  transform: rotateY(180deg);
+}
+.book-front, .book-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 4px 8px 8px 4px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+.book-front {
+  background-color: #8c2d19;
+  border: 3px solid #5a1c0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.book-front::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+.book-back {
+  background-color: #f1ebd4;
+  border: 3px solid #8c6b4f;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  color: #302d28;
+  font-family: var(--font-body);
+  font-size: 8px;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1.2;
+}
+.book-back-spine {
+  font-family: var(--font-title);
+  font-size: 6px;
+  color: #8c2d19;
+  text-align: center;
+  word-break: break-all;
+}
+.btn-book-action {
+  font-family: var(--font-title);
+  font-size: 6px;
+  background-color: #8c6b4f;
+  border: 2px solid;
+  border-color: #b08d70 #533e2d #533e2d #b08d70;
+  color: #ffffff;
+  padding: 2px 4px;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+.btn-book-action:hover {
+  background-color: #9e7d62;
+  color: var(--color-mc-text-yellow);
+}
+
+/* Quest Parchment Scroll Form */
+.quest-scroll-form {
+  background-color: #f1ebd4;
+  border-left: 6px solid #8c6b4f;
+  border-right: 6px solid #8c6b4f;
+  color: #2d261e;
+  padding: 15px 20px;
+  font-family: var(--font-body);
+  position: relative;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+.scroll-roller-top, .scroll-roller-bottom {
+  height: 12px;
+  background-color: #8c6b4f;
+  border: 3px solid #5a3c1e;
+  border-radius: 6px;
+  width: calc(100% + 20px);
+  margin-left: -10px;
+}
+.scroll-roller-top {
+  margin-bottom: 12px;
+}
+.scroll-roller-bottom {
+  margin-top: 12px;
+}
+.scroll-title {
+  font-family: var(--font-title);
+  font-size: 12px;
+  color: #8c2d19;
+  text-align: center;
+  margin-bottom: 15px;
+  border-bottom: 2px dashed #b8b19c;
+  padding-bottom: 8px;
+  text-shadow: none;
+}
+.scroll-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.scroll-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.scroll-label {
+  font-family: var(--font-title);
+  font-size: 8px;
+  color: #5a3c1e;
+}
+.scroll-input, .scroll-textarea {
+  background: rgba(0,0,0,0.05);
+  border: 2px solid #8c6b4f;
+  font-family: var(--font-body);
+  font-size: 16px;
+  padding: 6px;
+  color: #2d261e;
+  outline: none;
+}
+.scroll-input:focus, .scroll-textarea:focus {
+  border-color: #8c2d19;
+  background: rgba(0,0,0,0.08);
+}
+.scroll-textarea {
+  resize: none;
+}
+.scroll-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+/* Double-column grid for Terminal & Scroll */
+.console-wrapper {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 25px;
+  margin-top: 20px;
+}
+@media (max-width: 900px) {
+  .console-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+

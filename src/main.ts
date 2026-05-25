@@ -43,7 +43,6 @@ function initApp() {
     new QuestBook(
       'quests-list',
       'certs-shelf',
-      'modal-container',
       'advancement-toaster',
       game
     );
@@ -56,7 +55,6 @@ function initApp() {
       'terminal-container',
       'terminal-body',
       'terminal-input',
-      'modal-container',
       game
     );
   } catch (err) {
@@ -96,94 +94,57 @@ function initApp() {
 
   // 5. Setup Menu Navigation & General Interactive Events
   
-  // Explore Portfolio button - Minecraft world-loading transition
+  // Explore Portfolio button - Smooth scroll & block breaking sound
   try {
-    const btnExplore = document.getElementById('menu-explore') as HTMLButtonElement;
-    const portfolioWorld = document.getElementById('portfolio-world');
-    const hudWorld = document.getElementById('hud-world');
-
+    const btnExplore = document.getElementById('menu-explore') as HTMLAnchorElement;
     btnExplore?.addEventListener('click', () => {
-      // Play block breaking sound representing world initialization
       synth.playBreak();
       
-      // Animate button text representing classic load state
-      btnExplore.disabled = true;
-      btnExplore.textContent = "Generating World...";
-      
-      setTimeout(() => {
-        // Reveal game world
-        portfolioWorld?.classList.remove('hidden-world');
-        hudWorld?.classList.remove('hidden-world');
-        
-        // Satisfying ding
-        synth.playLevelUp();
-        
-        // Smooth scroll to the main skills section
-        const target = document.getElementById('skills-section');
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // Reset button
-        btnExplore.disabled = false;
-        btnExplore.textContent = "Explore Portfolio";
-        
-        // Trigger special welcome achievement toast
-        const toaster = document.getElementById('advancement-toaster');
-        if (toaster) {
-          toaster.innerHTML = `
-            <div class="advancement-icon">🌍</div>
-            <div class="advancement-text">
-              <span class="advancement-challenge">Advancement Made!</span>
-              <span class="advancement-title">World Joined: ggsk.dev</span>
-            </div>
-          `;
-          toaster.classList.remove('hidden');
-          setTimeout(() => {
-            toaster.classList.add('hidden');
-          }, 4000);
-        }
-      }, 1000);
+      // Grant XP for starting adventure
+      game.addXP(100);
+
+      // Trigger special welcome achievement toast
+      const toaster = document.getElementById('advancement-toaster');
+      if (toaster) {
+        toaster.innerHTML = `
+          <div class="advancement-icon">🌍</div>
+          <div class="advancement-text">
+            <span class="advancement-challenge">Advancement Made!</span>
+            <span class="advancement-title">World Joined: ggsk.dev</span>
+          </div>
+        `;
+        toaster.classList.remove('hidden');
+        setTimeout(() => {
+          toaster.classList.add('hidden');
+        }, 4000);
+      }
     });
   } catch (err) {
-    console.error("[ggsk] Explore button click listener registration failed:", err);
+    console.error("[ggsk] Explore button listener failed:", err);
   }
 
-  // Socials & Contact Menu button - Opens the direct transmission scroll
+  // Socials / Enchanted Credentials button - click sound
   try {
-    const btnSocials = document.getElementById('menu-socials');
-    const portfolioWorld = document.getElementById('portfolio-world');
-    const hudWorld = document.getElementById('hud-world');
-
+    const btnSocials = document.getElementById('menu-socials') as HTMLAnchorElement;
     btnSocials?.addEventListener('click', () => {
       synth.playClick();
-      
-      // If the world is hidden, reveal it first so that the terminal section becomes visible and focusable
-      if (portfolioWorld?.classList.contains('hidden-world')) {
-        portfolioWorld.classList.remove('hidden-world');
-        hudWorld?.classList.remove('hidden-world');
-      }
-
-      // Simulate terminal call to summon contact scroll
-      const terminalInput = document.getElementById('terminal-input') as HTMLInputElement;
-      if (terminalInput) {
-        terminalInput.value = '/contact';
-        const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
-        terminalInput.dispatchEvent(enterEvent);
-        
-        setTimeout(() => {
-          const target = document.getElementById('terminal-section');
-          target?.scrollIntoView({ behavior: 'smooth' });
-        }, 50);
-      }
     });
   } catch (err) {
-    console.error("[ggsk] Socials button click listener registration failed:", err);
+    console.error("[ggsk] Socials button listener failed:", err);
   }
 
-  // Audio Toggle & Accessibility Settings Menu Button
+  // Command Block / Contact button - click sound
   try {
-    const btnSettings = document.getElementById('menu-settings');
+    const btnSettings = document.getElementById('menu-settings') as HTMLAnchorElement;
+    btnSettings?.addEventListener('click', () => {
+      synth.playClick();
+    });
+  } catch (err) {
+    console.error("[ggsk] Settings button listener failed:", err);
+  }
+
+  // Audio Toggle & Accessibility Settings
+  try {
     const btnAudioToggle = document.getElementById('btn-audio-toggle');
     let audioOn = true;
 
@@ -197,22 +158,12 @@ function initApp() {
       }
     };
 
-    btnSettings?.addEventListener('click', () => {
-      synth.playClick();
-      // Highlight audio accessibility controls
-      btnAudioToggle?.focus();
-      btnAudioToggle?.classList.add('pulse-highlight');
-      setTimeout(() => {
-        btnAudioToggle?.classList.remove('pulse-highlight');
-      }, 1500);
-    });
-
     btnAudioToggle?.addEventListener('click', () => {
       updateAudioState(!audioOn);
       synth.playClick();
     });
   } catch (err) {
-    console.error("[ggsk] Settings button click listener registration failed:", err);
+    console.error("[ggsk] Audio toggle listener failed:", err);
   }
 
   // Hot-reload/unload safety

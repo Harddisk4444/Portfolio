@@ -77,25 +77,14 @@ const SKILLS_DB: SkillItem[] = [
 
 export class Inventory {
   private container: HTMLDivElement;
+  private detailsPanel: HTMLDivElement | null = null;
   private game: GameManager;
-  private activeTooltip: HTMLDivElement | null = null;
-  private docClickListener: () => void;
 
   constructor(containerId: string, game: GameManager) {
     this.container = document.getElementById(containerId) as HTMLDivElement;
+    this.detailsPanel = document.getElementById('skills-details-panel') as HTMLDivElement;
     this.game = game;
-    this.createTooltipElement();
     this.render();
-
-    // Hide tooltip when clicking anywhere else (perfect for mobile tap-to-dismiss)
-    this.docClickListener = () => this.hideTooltip();
-    document.addEventListener('click', this.docClickListener);
-  }
-
-  private createTooltipElement() {
-    this.activeTooltip = document.createElement('div');
-    this.activeTooltip.className = 'mc-tooltip';
-    document.body.appendChild(this.activeTooltip);
   }
 
   private render() {
@@ -103,6 +92,9 @@ export class Inventory {
     
     // Create standard Minecraft inventory HUD: 3 rows, 9 columns = 27 slots
     const totalSlots = 27;
+    let firstSlotElement: HTMLElement | null = null;
+    let firstItem: SkillItem | null = null;
+
     for (let i = 0; i < totalSlots; i++) {
       const slot = document.createElement('div');
       slot.className = 'inventory-slot';
@@ -114,39 +106,21 @@ export class Inventory {
         slot.innerHTML = `<span style="font-size: 28px;">${item.icon}</span>`;
         slot.setAttribute('aria-label', `${item.name} - Level ${item.level}`);
         
-        // Event Listeners for click and hover interaction
-        slot.addEventListener('click', (e) => {
+        if (i === 0) {
+          firstSlotElement = slot;
+          firstItem = item;
+        }
+
+        // Click interaction: selects and shows stats inline
+        slot.addEventListener('click', () => {
           synth.playClick();
           this.game.addXP(50); // Small XP reward for inspecting skills
-
-          // Toggle tooltip on mobile/desktop tap
-          if (this.activeTooltip) {
-            const isCurrentlyShown = this.activeTooltip.style.display === 'block';
-            const isActiveItem = this.activeTooltip.dataset.activeItem === item.id;
-
-            if (isCurrentlyShown && isActiveItem) {
-              this.hideTooltip();
-            } else {
-              this.showTooltip(item, e);
-              this.activeTooltip.dataset.activeItem = item.id;
-            }
-          }
-          e.stopPropagation(); // Prevent document listener from instantly hiding it
+          this.showSkillDetails(item, slot);
         });
 
-        slot.addEventListener('mouseenter', (e) => {
-          this.showTooltip(item, e);
-          if (this.activeTooltip) {
-            this.activeTooltip.dataset.activeItem = item.id;
-          }
-        });
-
-        slot.addEventListener('mouseleave', () => {
-          this.hideTooltip();
-        });
-
-        slot.addEventListener('mousemove', (e) => {
-          this.moveTooltip(e);
+        // Hover compatibility for desktops: instantly displays details
+        slot.addEventListener('mouseenter', () => {
+          this.showSkillDetails(item, slot);
         });
       } else {
         slot.setAttribute('aria-label', 'Empty Inventory Slot');
@@ -154,70 +128,60 @@ export class Inventory {
 
       this.container.appendChild(slot);
     }
+
+    // Auto-select first slot on load to keep details panel populated and premium
+    if (firstSlotElement && firstItem) {
+      this.showSkillDetails(firstItem, firstSlotElement);
+    }
   }
 
-  private showTooltip(item: SkillItem, e: MouseEvent) {
-    if (!this.activeTooltip) return;
+  private showSkillDetails(item: SkillItem, slotElement: HTMLElement) {
+    if (!this.detailsPanel) return;
 
-    // Generate HTML with high-contrast colored tooltips styled exactly like Minecraft
+    // Highlight selected slot
+    this.container.querySelectorAll('.inventory-slot').forEach(s => s.classList.remove('active-slot'));
+    slotElement.classList.add('active-slot');
+
     let enchantmentsHTML = '';
     item.enchantments.forEach((ench) => {
-      enchantmentsHTML += `<div style="color: #55ff55;">${ench}</div>`; // Minecraft Green Enchantment
+      enchantmentsHTML += `<div style="color: #55ff55; font-size: 16px; margin-bottom: 2px;">• ${ench}</div>`;
     });
 
     let statsHTML = '';
     item.stats.forEach((stat) => {
-      statsHTML += `<div style="color: #55ffff;">${stat}</div>`; // Minecraft Cyan Stats
+      statsHTML += `<div style="color: #55ffff; font-size: 16px; margin-bottom: 2px;">✦ ${stat}</div>`;
     });
 
-    this.activeTooltip.innerHTML = `
-      <div class="tooltip-title">${item.name}</div>
-      <div style="color: #9e7d62; font-size: 16px; margin-bottom: 8px;">${item.type} (${item.quality})</div>
-      <div style="margin-bottom: 8px;">
-        <span style="color: var(--color-mc-text-yellow);">Level:</span>
-        <span style="color: #ffffff; font-weight: bold;">${item.level}</span>
+    this.detailsPanel.innerHTML = `
+      <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px dashed var(--color-obsidian-border); padding-bottom: 8px; margin-bottom: 12px;">
+        <span style="font-family: var(--font-title); font-size: 16px; color: #a984e5; text-shadow: 2px 2px 0 #000;">${item.name}</span>
+        <span style="font-size: 24px;">${item.icon}</span>
       </div>
-      <div style="margin-bottom: 8px;">${enchantmentsHTML}</div>
-      <div style="margin-bottom: 8px; border-top: 1px dashed #555555; padding-top: 6px;">${statsHTML}</div>
-      <div style="color: #aaaaaa; font-size: 15px; font-style: italic; line-height: 1.3;">"${item.description}"</div>
+      <div style="color: #9e7d62; font-size: 10px; margin-bottom: 10px; font-family: var(--font-title); text-transform: uppercase;">${item.type} (${item.quality})</div>
+      <div style="margin-bottom: 12px; font-size: 16px;">
+        <span style="color: var(--color-mc-text-yellow); font-family: var(--font-title); font-size: 10px; text-transform: uppercase;">Level:</span>
+        <span style="color: #ffffff; font-weight: bold; font-family: var(--font-title); font-size: 12px;">${item.level} / 99</span>
+      </div>
+      
+      <div style="margin-bottom: 12px;">
+        <div style="font-family: var(--font-title); font-size: 8px; color: var(--color-text-muted); margin-bottom: 6px; text-transform: uppercase;">Enchantments:</div>
+        ${enchantmentsHTML}
+      </div>
+      
+      <div style="margin-bottom: 12px; border-top: 1px dashed var(--color-obsidian-border); padding-top: 8px;">
+        <div style="font-family: var(--font-title); font-size: 8px; color: var(--color-text-muted); margin-bottom: 6px; text-transform: uppercase;">Active Attributes:</div>
+        ${statsHTML}
+      </div>
+      
+      <div style="color: #aaaaaa; font-size: 15px; font-style: italic; line-height: 1.4; border-top: 1px dashed var(--color-obsidian-border); padding-top: 8px;">
+        "${item.description}"
+      </div>
     `;
 
-    this.activeTooltip.style.display = 'block';
-    this.moveTooltip(e);
-  }
-
-  private moveTooltip(e: MouseEvent) {
-    if (!this.activeTooltip) return;
-
-    // Offset coordinates to avoid overlap with cursor
-    const offset = 15;
-    let x = e.pageX + offset;
-    let y = e.pageY + offset;
-
-    // Boundary protection to prevent tooltip overflow outside screen window
-    const tooltipWidth = this.activeTooltip.offsetWidth;
-    const tooltipHeight = this.activeTooltip.offsetHeight;
-
-    if (x + tooltipWidth > window.innerWidth + window.scrollX) {
-      x = e.pageX - tooltipWidth - offset;
-    }
-    if (y + tooltipHeight > window.innerHeight + window.scrollY) {
-      y = e.pageY - tooltipHeight - offset;
-    }
-
-    this.activeTooltip.style.left = `${x}px`;
-    this.activeTooltip.style.top = `${y}px`;
-  }
-
-  private hideTooltip() {
-    if (!this.activeTooltip) return;
-    this.activeTooltip.style.display = 'none';
+    this.detailsPanel.classList.remove('hidden-details');
   }
 
   destroy() {
-    document.removeEventListener('click', this.docClickListener);
-    if (this.activeTooltip) {
-      this.activeTooltip.remove();
-    }
+    // Destructor is preserved for lifecycle management, though no manual window listener is active
   }
 }
