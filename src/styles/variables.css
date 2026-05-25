@@ -1,0 +1,35 @@
+:root {
+  /* Color System (HSL) */
+  --color-obsidian-dark: hsl(240, 10%, 6%);     /* Main background */
+  --color-obsidian-card: hsl(240, 8%, 12%);     /* Card containers */
+  --color-obsidian-border: hsl(240, 6%, 22%);   /* Structural borders */
+  
+  --color-redstone-red: hsl(345, 100%, 60%);     /* Redstone Accent */
+  --color-redstone-glow: hsla(345, 100%, 60%, 0.35);
+  
+  --color-command-green: hsl(120, 100%, 54%);    /* Cyber Green */
+  --color-command-glow: hsla(120, 100%, 54%, 0.35);
+  
+  --color-cyber-blue: hsl(187, 100%, 50%);       /* Neon Blue */
+  --color-cyber-glow: hsla(187, 100%, 50%, 0.35);
+  
+  --color-text-bright: hsl(210, 20%, 98%);
+  --color-text-muted: hsl(210, 8%, 70%);
+  --color-text-dark: hsl(240, 5%, 4%);
+  
+  /* Minecraft Specific Retro Colors */
+  --color-mc-gray-bg: #c6c6c6;
+  --color-mc-border-light: #ffffff;
+  --color-mc-border-dark: #555555;
+  --color-mc-tooltip-purple: #1e092a;
+  --color-mc-tooltip-border: #2e0854;
+  --color-mc-text-yellow: #ffff55;
+  
+  /* Font Families */
+  --font-title: 'Press Start 2P', monospace;
+  --font-body: 'VT323', monospace;
+  
+  /* Layout Scales */
+  --scale-voxel: 4px;
+  --transition-minecraft: 0.1s steps(4);
+}

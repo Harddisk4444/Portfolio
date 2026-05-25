@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Security Hardening: Content Security Policy (CSP) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+  
+  <title>GGSK | Senior DevSecOps Architect Portfolio</title>
+  <meta name="description" content="Professional portfolio of GGSK, a Senior DevSecOps Architect. Explore high-performance projects, verified certificates, and interactive cybersecurity skills in a gamified Minecraft-Cyber theme.">
+  
+  <!-- SEO & OpenGraph Meta Tags -->
+  <meta property="og:title" content="GGSK | Senior DevSecOps Architect Portfolio">
+  <meta property="og:description" content="Explore verified certificates, security architectures, and core DevSecOps skills in an interactive Minecraft theme.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ggsk.dev">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="/src/styles/variables.css">
+  <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+
+  <!-- Pseudo-3D Voxel Background Grid -->
+  <canvas id="voxel-canvas"></canvas>
+
+  <!-- Sound Toggle & Settings Panel (Accessibility) -->
+  <div id="settings-panel" class="settings-panel">
+    <button id="btn-audio-toggle" class="btn-retro" aria-label="Toggle Audio">
+      <span class="icon-speaker">🔊</span> AUDIO: ON
+    </button>
+  </div>
+
+  <div class="site-container">
+    
+    <!-- 1. Hero Main Menu Section (Startup Page) -->
+    <header id="hero" class="section hero-section">
+      <div class="hero-title-container">
+        <h1 class="pixel-logo">GGSK<span class="dot-dev">.DEV</span></h1>
+        <div class="splash-text">DevSecOps Hardened!</div>
+      </div>
+      
+      <nav class="main-menu" aria-label="Main Navigation">
+        <button id="menu-explore" class="btn-minecraft" data-target="skills-section">
+          Explore Portfolio
+        </button>
+        <button id="menu-socials" class="btn-minecraft">
+          Socials & Contact
+        </button>
+        <button id="menu-settings" class="btn-minecraft">
+          Audio & Settings
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Content Container (Semantic HTML for absolute SEO indexability) -->
+    <main>
+      
+      <!-- 2. Skills Inventory Grid (Section 1) -->
+      <section id="skills-section" class="section content-section">
+        <h2 class="section-title text-green">Skills Inventory</h2>
+        <p class="section-subtitle">Hover over technical weapons and armor slots to view custom tooltips & stats.</p>
+        
+        <div class="inventory-container">
+          <!-- Minecraft HUD Inventory Grid -->
+          <div class="inventory-grid" id="skills-inventory">
+            <!-- Dynamically populated, but contains semantic fallback labels for crawlers -->
+            <noscript>
+              <ul>
+                <li>TypeScript - Level 96</li>
+                <li>Kubernetes - Level 95</li>
+                <li>Docker - Level 90</li>
+                <li>Python - Level 92</li>
+                <li>Go - Level 85</li>
+                <li>Linux - Level 94</li>
+                <li>Terraform - Level 88</li>
+                <li>Git & CI/CD - Level 95</li>
+                <li>Cloud Security - Level 93</li>
+              </ul>
+            </noscript>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Featured Projects & Certificates (Section 2) -->
+      <section id="projects-section" class="section content-section">
+        <h2 class="section-title text-red">Featured Projects & Certificates</h2>
+        <p class="section-subtitle">Complete quests and inspect enchanted credential logs.</p>
+        
+        <div class="quest-log-container">
+          
+          <!-- Projects List (Quests) -->
+          <div class="quests-column">
+            <h3 class="subtitle-block">Active Quests (Projects)</h3>
+            <div class="quest-cards-list" id="quests-list">
+              <!-- Dynamically populated cards -->
+            </div>
+          </div>
+          
+          <!-- Certificates List (Enchanted Library) -->
+          <div class="certificates-column">
+            <h3 class="subtitle-block">Enchanted Credentials (Certificates)</h3>
+            <div class="certificates-shelf" id="certs-shelf">
+              <!-- Dynamically populated books -->
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+      <!-- 4. Interactive Console & Quest Scroll (Section 3) -->
+      <section id="terminal-section" class="section content-section">
+        <h2 class="section-title text-cyan">Command-Block Console</h2>
+        <p class="section-subtitle">Run simulated secure commands or open a contact transmission scroll.</p>
+        
+        <div class="console-wrapper">
+          <!-- Command Block UI Terminal -->
+          <div class="command-block-terminal" id="terminal-container">
+            <div class="terminal-header">
+              <span class="status-indicator"></span> COMMAND BLOCK: ACTIVE
+            </div>
+            <div class="terminal-body" id="terminal-body">
+              <div class="terminal-line text-green">System boot successful. Type "/help" for available commands.</div>
+            </div>
+            <div class="terminal-input-row">
+              <span class="terminal-prompt">&gt;</span>
+              <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" aria-label="Terminal Input" placeholder="Type here...">
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Persistent HUD Overlay (Hearts & XP indicators) -->
+    <footer class="hud-overlay">
+      <div class="hud-content">
+        <!-- Hearts Bar -->
+        <div class="hud-hearts" id="hud-hearts" aria-label="Health Status">
+          <!-- Rendered dynamically as pixel hearts -->
+        </div>
+        <!-- XP Progress Bar -->
+        <div class="hud-xp-container">
+          <div class="xp-level-badge" id="xp-level-badge">LVL 1</div>
+          <div class="xp-progress-track">
+            <div class="xp-progress-bar" id="xp-progress-bar" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Modal / Popups Container -->
+  <div id="modal-container" class="modal-overlay hidden">
+    <!-- Content injected dynamically (Book & Quill, Socials, Advancement Toasts) -->
+  </div>
+  
+  <!-- Achievement Advancement Toaster (Challenge Complete Popup) -->
+  <div id="advancement-toaster" class="advancement-toaster hidden">
+    <!-- Advancement toasts pop up here -->
+  </div>
+
+  <!-- Bootstrapper -->
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
