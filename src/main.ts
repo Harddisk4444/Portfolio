@@ -69,14 +69,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 5. Setup Menu Navigation & General Interactive Events
   
-  // Explore Portfolio button - Smooth scroll down to first content section
-  const btnExplore = document.getElementById('menu-explore');
+  // Explore Portfolio button - Minecraft world-loading transition
+  const btnExplore = document.getElementById('menu-explore') as HTMLButtonElement;
+  const portfolioWorld = document.getElementById('portfolio-world');
+  const hudWorld = document.getElementById('hud-world');
+
   btnExplore?.addEventListener('click', () => {
-    synth.playClick();
-    const target = document.getElementById('skills-section');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Play block breaking sound representing world initialization
+    synth.playBreak();
+    
+    // Animate button text representing classic load state
+    btnExplore.disabled = true;
+    btnExplore.textContent = "Generating World...";
+    
+    setTimeout(() => {
+      // Reveal game world
+      portfolioWorld?.classList.remove('hidden-world');
+      hudWorld?.classList.remove('hidden-world');
+      
+      // Satisfying ding
+      synth.playLevelUp();
+      
+      // Smooth scroll to the main skills section
+      const target = document.getElementById('skills-section');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+      
+      // Reset button
+      btnExplore.disabled = false;
+      btnExplore.textContent = "Explore Portfolio";
+      
+      // Trigger special welcome achievement toast
+      const toaster = document.getElementById('advancement-toaster');
+      if (toaster) {
+        toaster.innerHTML = `
+          <div class="advancement-icon">🌍</div>
+          <div class="advancement-text">
+            <span class="advancement-challenge">Advancement Made!</span>
+            <span class="advancement-title">World Joined: ggsk.dev</span>
+          </div>
+        `;
+        toaster.classList.remove('hidden');
+        setTimeout(() => {
+          toaster.classList.add('hidden');
+        }, 4000);
+      }
+    }, 1000);
   });
 
   // Socials & Contact Menu button - Opens the direct transmission scroll

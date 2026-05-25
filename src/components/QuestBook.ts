@@ -71,7 +71,7 @@ const CERTS_DB: Certificate[] = [
       'Fortified Domains:\n- Attacks, Threats & Vulnerabilities\n- Architecture & Secure Design\n- Implementation & Network Operations\n- Governance, Risk & Compliance'
     ],
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: 'assets/images/certificates/cert_1.jpg'
+    image: 'assets/images/certificates/1240867619970528.jpg'
   },
   {
     id: 'cert_google',
@@ -83,7 +83,7 @@ const CERTS_DB: Certificate[] = [
       'Secured Tools:\n- Python & Linux OS\n- SQL Database Querying\n- Chronicle & Splunk SIEM\n- Wireshark Network Packet Sniffing'
     ],
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: 'assets/images/certificates/cert_2.jpg'
+    image: 'assets/images/certificates/1240867623303861.jpg'
   },
   {
     id: 'cert_ejpt',
@@ -95,7 +95,7 @@ const CERTS_DB: Certificate[] = [
       'Offensive Powers:\n- IP Routing & Network Pivoting\n- Vulnerability Assessment\n- Metasploit & Nmap Recon\n- Web App Penetration Exploiting'
     ],
     verifyUrl: 'https://www.facebook.com/media/set/?set=a.1240868353303788&type=3',
-    image: 'assets/images/certificates/cert_3.jpg'
+    image: 'assets/images/certificates/1240867703303853.jpg'
   }
 ];
 

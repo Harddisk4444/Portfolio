@@ -42,6 +42,11 @@ body {
   pointer-events: none;
 }
 
+/* Helper utilities */
+.hidden-world {
+  display: none !important;
+}
+
 /* General Layout Elements */
 .site-container {
   max-width: 1200px;
