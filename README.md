@@ -66,7 +66,7 @@ To achieve a perfect **100% Lighthouse Performance & SEO rating**, the site is d
 ## 🔒 Hardened DevSecOps Guardrails
 
 - **Strict CSP:** Configured with a rigid `Content-Security-Policy` header blocking arbitrary script executions and mitigating XSS/Data Injection.
-- **Private Profile Isolation:** Personal branding is strictly decoupled from NCSA organizational emails, ensuring complete compliance for private freelancing and secure consulting services.
+- **Private Profile Isolation:** Personal branding is strictly decoupled from primary official/agency entities and work emails, ensuring complete separation and compliance for private freelancing and secure consulting services.
 - **Automated DevSecOps Pipeline:** Built with a GitHub Actions CI/CD pipeline `.github/workflows/deploy.yml` that performs vulnerability scans (`npm audit`) and secure compiles on every single push.
 
 ---
