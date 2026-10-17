@@ -1,212 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Security Hardening: Content Security Policy (CSP) -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
-  
-  <title>Nattachai Atchariyakul | Cyber Security Specialist & Full Stack Engineer</title>
-  <meta name="description" content="Professional portfolio of Nattachai Atchariyakul, a Cyber Security Specialist & Full Stack Engineer. Explore threat intelligence, networking, and full stack projects in a gamified Minecraft-Cyber theme.">
-  
-  <!-- SEO & OpenGraph Meta Tags -->
-  <meta property="og:title" content="Nattachai Atchariyakul | Cyber Security Specialist Portfolio">
-  <meta property="og:description" content="Explore threat hunting, network security, and AI prompting inside an interactive Minecraft theme portfolio.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+
+  <title>Nattachai Atchariyakul | Cyber Security Specialist &amp; Full Stack Engineer</title>
+  <meta name="description" content="Portfolio of Nattachai Atchariyakul, Cyber Security Specialist and Full Stack Engineer: threat intelligence, threat hunting, threat analysis, secure networks and AI prompt engineering, plus {{cert-count}} credentials.">
+  <link rel="canonical" href="https://ggsk.dev/">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Nattachai Atchariyakul">
+  <meta name="theme-color" content="#05070B">
+  <meta name="color-scheme" content="dark">
+
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ggsk.dev">
+  <meta property="og:url" content="https://ggsk.dev/">
+  <meta property="og:title" content="Nattachai Atchariyakul | Cyber Security Specialist">
+  <meta property="og:description" content="Threat intelligence, threat hunting and secure networks, presented as a spirit master's rings in an interactive WebGL portfolio.">
+  <meta property="og:image" content="https://ggsk.dev/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Six glowing spirit rings stacked around a jade and gold aura, beside the name Nattachai Atchariyakul.">
   <meta name="twitter:card" content="summary_large_image">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
-  
-  <!-- Core CSS -->
+  <meta name="twitter:image" content="https://ggsk.dev/og-image.jpg">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
   <link rel="stylesheet" href="/src/styles/variables.css">
   <link rel="stylesheet" href="/src/styles/main.css">
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Nattachai Atchariyakul",
+      "url": "https://ggsk.dev/",
+      "jobTitle": "Cyber Security Specialist & Full Stack Engineer",
+      "knowsAbout": ["Threat Intelligence", "Threat Hunting", "Threat Analysis", "Network Security", "AI Prompt Engineering"]
+    }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="mist" aria-hidden="true"></div>
 
-  <!-- Pseudo-3D Voxel Background Grid -->
-  <canvas id="voxel-canvas"></canvas>
+  <button type="button" class="sound-toggle" id="sound-toggle" aria-pressed="true">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+    <span>Sound</span>
+    <span class="sound-toggle__state" aria-hidden="true">On</span>
+  </button>
 
-  <!-- Sound Toggle & Settings Panel (Accessibility) -->
-  <div id="settings-panel" class="settings-panel">
-    <button id="btn-audio-toggle" class="btn-retro" aria-label="Toggle Audio">
-      <span class="icon-speaker">🔊</span> AUDIO: ON
-    </button>
-  </div>
+  <!-- ═══ Hero: static HTML + CSS spirit rings. WebGL replaces the rings only after load. ═══ -->
+  <header class="hero" id="top">
+    <canvas class="hero__canvas" id="spirit-canvas" aria-hidden="true" tabindex="-1"></canvas>
 
-  <div class="site-container">
-    
-    <!-- 1. Hero Main Menu Section (Startup Page) -->
-    <header id="hero" class="section hero-section">
-      <div class="hero-title-container">
-        <h1 class="pixel-logo">GGSK<span class="dot-dev">.DEV</span></h1>
-        <div style="font-family: var(--font-title); font-size: 12px; margin-top: 12px; color: var(--color-text-muted); text-shadow: 2px 2px 0 #000; text-transform: uppercase;">Nattachai Atchariyakul</div>
-        <div style="font-family: var(--font-body); font-size: 22px; color: var(--color-cyber-blue); margin-top: 8px; text-shadow: 1px 1px 0 #000;">Cyber Security Specialist & Full Stack Engineer</div>
-        <div class="splash-text">Don't forget to Play!</div>
+    <div class="hero__inner">
+      <div class="hero__visual" id="hero-visual" aria-hidden="true">
+        <div class="css-rings">
+          <span class="cr-aura"></span>
+          <span class="cr-array"></span>
+          <span class="cr cr--back tier-r10" style="--i:0"></span>
+          <span class="cr cr--back tier-r100" style="--i:1"></span>
+          <span class="cr cr--back tier-r1k" style="--i:2"></span>
+          <span class="cr cr--back tier-r10k" style="--i:3"></span>
+          <span class="cr cr--back tier-r100k" style="--i:4"></span>
+          <span class="cr cr--back tier-r1m" style="--i:5"></span>
+          <span class="cr-pillar"></span>
+          <span class="cr-core"></span>
+          <span class="cr cr--front tier-r10" style="--i:0"></span>
+          <span class="cr cr--front tier-r100" style="--i:1"></span>
+          <span class="cr cr--front tier-r1k" style="--i:2"></span>
+          <span class="cr cr--front tier-r10k" style="--i:3"></span>
+          <span class="cr cr--front tier-r100k" style="--i:4"></span>
+          <span class="cr cr--front tier-r1m" style="--i:5"></span>
+        </div>
       </div>
-      
-      <nav class="main-menu" aria-label="Main Navigation">
-        <a href="#skills-section" id="menu-explore" class="btn-minecraft" style="text-decoration: none;">
-          Explore Portfolio
-        </a>
-        <a href="#projects-section" id="menu-socials" class="btn-minecraft" style="text-decoration: none;">
-          Enchanted Credentials
-        </a>
-        <a href="#terminal-section" id="menu-settings" class="btn-minecraft" style="text-decoration: none;">
-          Command Block & Contact
-        </a>
-      </nav>
 
-      <div class="scroll-down-indicator" aria-hidden="true">
-        <span class="arrow-pixel">▼</span>
+      <div class="hero__copy">
+        <p class="hero__eyebrow">GGSK.DEV · Spirit Master of Cyber Defence</p>
+        <h1 class="hero__title"><span>Nattachai</span> <span>Atchariyakul</span></h1>
+        <p class="hero__role">Cyber Security Specialist &amp; Full Stack Engineer</p>
+        <p class="hero__lede">Threat intelligence, threat hunting and secure networks. Every skill here is a spirit ring, earned through real trials.</p>
+        <nav class="hero__nav" aria-label="Sections">
+          <a class="btn btn-gold" href="#skills" id="nav-skills">Awaken Martial Soul <small>Skills</small></a>
+          <a class="btn btn-ghost" href="#trials">Soul Trials <small>Projects</small></a>
+          <a class="btn btn-ghost" href="#archive">Spirit Bone Archive <small>Certificates</small></a>
+          <a class="btn btn-ghost" href="#console">Spirit Console <small>Contact</small></a>
+        </nav>
       </div>
-    </header>
+    </div>
 
-    <!-- Main Content Container (Semantic HTML for absolute SEO indexability) -->
-    <main id="portfolio-world">
-      
-      <!-- 2. Skills Inventory Grid (Section 1) -->
-      <section id="skills-section" class="section content-section">
-        <h2 class="section-title text-green">Skills Inventory</h2>
-        <p class="section-subtitle">Tap slots in the inventory HUD grid below to inspect active weapons and stats.</p>
-        
-        <div class="inventory-container">
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%;">
-            <!-- Minecraft HUD Inventory Grid -->
-            <div class="inventory-grid" id="skills-inventory">
-              <noscript>
-                <ul>
-                  <li>Threat Intelligence - Level 95</li>
-                  <li>Threat Hunting - Level 92</li>
-                  <li>Threat Analysis - Level 94</li>
-                  <li>Secure Networks & Infrastructure - Level 90</li>
-                  <li>AI Prompt Engineering - Level 88</li>
-                </ul>
-              </noscript>
-            </div>
-            <!-- Dynamic Inline Skills Details Panel -->
-            <div id="skills-details-panel" class="skills-details-panel hidden-details">
-              <div class="details-placeholder">Select a weapon slot to view statistics...</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <a class="scroll-cue" href="#skills"><span class="visually-hidden">Scroll to skills</span><span class="scroll-cue__chevron" aria-hidden="true"></span></a>
+  </header>
 
-      <!-- 3. Featured Projects & Certificates (Section 2) -->
-      <section id="projects-section" class="section content-section">
-        <h2 class="section-title text-red">Featured Projects & Certificates</h2>
-        <p class="section-subtitle">Complete active quests or flip open the enchanted credential books below.</p>
-        
-        <div class="quest-log-container">
-          
-          <!-- Projects List (Quests) -->
-          <div class="quests-column">
-            <h3 class="subtitle-block">Active Quests (Projects)</h3>
-            <div class="quest-cards-list" id="quests-list">
-              <!-- Dynamically populated cards -->
-            </div>
-          </div>
-          
-          <!-- Certificates List (Enchanted Library Shelf) -->
-          <div class="certificates-column">
-            <h3 class="subtitle-block">Enchanted Credentials (Certificates)</h3>
-            <div class="certificates-shelf" id="certs-shelf">
-              <!-- Dynamically populated 3D Flipping Books -->
-            </div>
-            <!-- Dynamic Inline Credentials Inspection Lectern -->
-            <div id="cert-details-panel" class="cert-details-panel">
-              <div class="details-placeholder">Select an enchanted book from the shelf to inspect credentials...</div>
-            </div>
-          </div>
-          
-        </div>
-      </section>
+  <main id="main">
 
-      <!-- 4. Interactive Console & Quest Scroll (Section 3) -->
-      <section id="terminal-section" class="section content-section">
-        <h2 class="section-title text-cyan">Command-Block Console & Manifest</h2>
-        <p class="section-subtitle">Run simulated secure commands or transmit an encrypted contact scroll.</p>
-        
-        <div class="console-wrapper">
-          <!-- Command Block UI Terminal -->
-          <div class="command-block-terminal" id="terminal-container">
-            <div class="terminal-header">
-              <span class="status-indicator"></span> COMMAND BLOCK: ACTIVE
-            </div>
-            <div class="terminal-body" id="terminal-body">
-              <div class="terminal-line text-green">System boot successful. Type "/help" for available commands.</div>
-            </div>
-            <div class="terminal-input-row">
-              <span class="terminal-prompt">&gt;</span>
-              <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" aria-label="Terminal Input" placeholder="Type here...">
-            </div>
-          </div>
-
-          <!-- QUEST SCROLL CONTACT SHEET (Inline) -->
-          <div class="quest-scroll-form" id="contact-scroll">
-            <div class="scroll-roller-top"></div>
-            <div class="scroll-body">
-              <h3 class="scroll-title">MANIFEST SCROLL</h3>
-              <div class="scroll-fields">
-                <div class="scroll-field">
-                  <label for="scroll-name" class="scroll-label">Your Cryptic Name:</label>
-                  <input type="text" id="scroll-name" class="scroll-input" autocomplete="off" placeholder="Enter name...">
-                </div>
-                <div class="scroll-field">
-                  <label for="scroll-email" class="scroll-label">Safe Delivery Mail:</label>
-                  <input type="email" id="scroll-email" class="scroll-input" autocomplete="off" placeholder="name@domain.com">
-                </div>
-                <div class="scroll-field">
-                  <label for="scroll-message" class="scroll-label">Secure Transmission Data:</label>
-                  <textarea id="scroll-message" class="scroll-textarea" rows="4" placeholder="Type secure message..."></textarea>
-                </div>
-              </div>
-              <div class="scroll-action">
-                <button id="btn-scroll-submit" class="btn-minecraft">SEND SCROLL</button>
-              </div>
-            </div>
-            <div class="scroll-roller-bottom"></div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- Persistent HUD Overlay (Hearts & XP indicators) -->
-    <footer id="hud-world" class="hud-overlay">
-      <div class="hud-content">
-        <!-- Hearts Bar -->
-        <div class="hud-hearts" id="hud-hearts" aria-label="Health Status">
-          <!-- Rendered dynamically as pixel hearts -->
-        </div>
-        <!-- XP Progress Bar -->
-        <div class="hud-xp-container">
-          <div class="xp-level-badge" id="xp-level-badge">LVL 1</div>
-          <div class="xp-progress-track">
-            <div class="xp-progress-bar" id="xp-progress-bar" style="width: 0%;"></div>
+    <!-- ═══ Skills ═══ -->
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <div class="section__head">
+        <p class="section__kicker">Skills</p>
+        <h2 class="section__title" id="skills-title">Martial Soul &amp; Spirit Rings</h2>
+        <p class="section__lede">Each core skill is a spirit ring. Its colour is its age, and its age is its power.</p>
+        <!--@ring-legend-->
+      </div>
+      <div class="skills-layout">
+        <!--@skill-list-->
+        <div class="skill-panel aura-card" id="skill-detail" data-tilt>
+          <span class="filigree" aria-hidden="true"></span>
+          <div class="skill-panel__stack"><!--@skill-views-->
           </div>
         </div>
       </div>
-    </footer>
+    </section>
 
-  </div>
+    <!-- ═══ Projects ═══ -->
+    <section class="section" id="trials" aria-labelledby="trials-title">
+      <div class="section__head">
+        <p class="section__kicker">Projects</p>
+        <h2 class="section__title" id="trials-title">Soul Trials</h2>
+        <p class="section__lede">Every project is a trial. Clear one to absorb its soul power.</p>
+      </div>
+      <div class="trial-grid" id="trial-grid"><!--@trials-->
+      </div>
+    </section>
 
-  <!-- Modal / Popups Container -->
-  <div id="modal-container" class="modal-overlay hidden">
-    <!-- Content injected dynamically (Book & Quill, Socials, Advancement Toasts) -->
-  </div>
-  
-  <!-- Achievement Advancement Toaster (Challenge Complete Popup) -->
-  <div id="advancement-toaster" class="advancement-toaster hidden">
-    <!-- Advancement toasts pop up here -->
-  </div>
+    <!-- ═══ Certificates ═══ -->
+    <section class="section" id="archive" aria-labelledby="archive-title">
+      <div class="section__head">
+        <p class="section__kicker">Certificates</p>
+        <h2 class="section__title" id="archive-title">Spirit Bone Archive</h2>
+        <p class="section__lede">{{cert-count}} credentials sealed in jade slips. Choose a slip to read it on the lectern.</p>
+      </div>
+      <div class="archive-layout">
+        <!--@cert-shelf-->
+        <div class="lectern aura-card" id="cert-detail">
+          <span class="filigree" aria-hidden="true"></span>
+          <div class="lectern__body" id="cert-detail-body"><!--@cert-detail-->
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Bootstrapper -->
+    <!-- ═══ Console & contact ═══ -->
+    <section class="section" id="console" aria-labelledby="console-title">
+      <div class="section__head">
+        <p class="section__kicker">Console &amp; Contact</p>
+        <h2 class="section__title" id="console-title">Spirit Console</h2>
+        <p class="section__lede">Speak the old incantations, or seal a spirit message.</p>
+      </div>
+      <div class="console-layout">
+        <div class="terminal">
+          <p class="terminal__bar"><span class="terminal__dot" aria-hidden="true"></span>Spirit Console · Resonating</p>
+          <div class="terminal__log" id="terminal-log" role="log" aria-live="polite" aria-label="Console output" tabindex="0">
+            <p class="t-line t-jade">Formation online. Type /help to see the incantations.</p>
+          </div>
+          <form class="terminal__prompt" id="terminal-form" autocomplete="off">
+            <label class="visually-hidden" for="terminal-input">Console command</label>
+            <span class="terminal__caret" aria-hidden="true">❯</span>
+            <input class="terminal__input" id="terminal-input" name="command" type="text" placeholder="/help" spellcheck="false" autocapitalize="off" enterkeyhint="send">
+          </form>
+        </div>
+
+        <form class="scroll-form aura-card" id="contact-form" novalidate data-tilt>
+          <span class="filigree" aria-hidden="true"></span>
+          <h3 class="scroll-form__title">Spirit Message</h3>
+          <div class="field">
+            <label for="contact-name">Name</label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="contact-email">Email</label>
+            <input id="contact-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" rows="4" required></textarea>
+          </div>
+          <p class="form-error" id="contact-error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-gold">Seal spirit message</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2026 Nattachai Atchariyakul · <a href="https://ggsk.dev/">ggsk.dev</a></p>
+    <p class="site-footer__note">Spirit rings drawn live with WebGL2 shaders: no 3D models, no trackers.</p>
+  </footer>
+
+  <!-- ═══ Persistent HUD ═══ -->
+  <aside class="hud" aria-label="Your soul power">
+    <p class="hud__level"><span class="hud__label">Soul Power</span><span class="hud__lv">Lv <span id="hud-level">1</span></span></p>
+    <div class="hud__progress">
+      <div class="hud__xp" id="hud-xp" role="progressbar" aria-label="Experience to the next spirit ring" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="0" aria-valuetext="0 of 1000 XP"><span class="hud__xp-fill" id="hud-xp-fill"></span></div>
+      <div class="hud__rings" id="hud-rings" aria-hidden="true"></div>
+    </div>
+    <p class="hud__vitality">
+      <span class="hud__label">Vitality</span>
+      <span class="hud__beads" id="hud-beads" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+      <span class="visually-hidden" id="hud-vitality-text">10 of 10</span>
+    </p>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
   <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

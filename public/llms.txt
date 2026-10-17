@@ -1,0 +1,10 @@
+# Nattachai Atchariyakul | ggsk.dev
+
+> Portfolio of Nattachai Atchariyakul, Cyber Security Specialist & Full Stack Engineer. Focus: threat intelligence, threat hunting, threat analysis, secure networks and AI prompt engineering. The whole portfolio is one static page; every section below is plain HTML.
+
+## Sections
+
+- [Skills](https://ggsk.dev/#skills): Threat Intelligence (level 95 of 99), Threat Analysis (94), Threat Hunting (92), Secure Networks & Infrastructure (90), AI Prompt Engineering (88).
+- [Projects](https://ggsk.dev/#trials): Zero-Trust Gatekeeper (Go API gateway with HashiCorp Vault), Spirit Forge SecOps Pipeline (GitHub Actions with SAST, SCA and dependency audits), Jade Vault Cache Ledger (Python and Redis with token-bucket rate limiting). Flagship: PSRU CTF challenge design.
+- [Certificates](https://ggsk.dev/#archive): ISC2 Certified in Cybersecurity (CC), CCEP, EC-Council Digital Forensics, Ethical Hacking and Network Defense Essentials, Thailand's National Cyber Exercise 2024 and 2025, Thailand Cyber Top Talent 2024, and more.
+- [Contact](https://ggsk.dev/#console): command console and contact form.

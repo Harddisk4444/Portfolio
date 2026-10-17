@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify:lighthouse": "node scripts/verify-lighthouse.mjs"
   },
   "devDependencies": {
     "typescript": "^5.4.5",

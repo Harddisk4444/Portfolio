@@ -1,6 +1,7 @@
 /**
- * Cyber-Minecraft Core Game & Sound Synthesis Engine
- * Zero-Dependency, lightweight Web Audio API synthesis for perfect Lighthouse performance.
+ * Soul Power progression & spirit-chime synthesis.
+ * Zero-dependency Web Audio synthesis. The AudioContext is only created inside a
+ * user gesture (click / key press), so the browser never logs an autoplay warning.
  */
 
 export interface GameState {
@@ -12,157 +13,113 @@ export interface GameState {
 }
 
 const STORAGE_KEY = 'ggsk_portfolio_game_state';
+export const MAX_HEALTH = 10;
 
-// Synthesized Audio Engine (Web Audio API)
-class AudioSynth {
+// Pentatonic scale (C D E G A) — a plucked, guzheng-like voice suits the theme.
+const PENTATONIC = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25, 587.33, 659.25, 783.99, 880.0];
+
+class SpiritSynth {
   private ctx: AudioContext | null = null;
-  private isEnabled: boolean = true;
+  private enabled = true;
 
-  init() {
+  private context(): AudioContext | null {
+    if (!this.enabled) return null;
     try {
-      if (!this.ctx) {
-        this.ctx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
-      }
-      if (this.ctx && this.ctx.state === 'suspended') {
-        this.ctx.resume();
-      }
-    } catch (e) {
-      console.warn("Web Audio API not supported or blocked by browser:", e);
+      if (!this.ctx) this.ctx = new AudioContext();
+      if (this.ctx.state === 'suspended') void this.ctx.resume();
+      return this.ctx;
+    } catch {
       this.ctx = null;
+      return null;
     }
   }
 
-  toggle(enabled: boolean) {
-    this.isEnabled = enabled;
+  setEnabled(enabled: boolean) {
+    this.enabled = enabled;
+  }
+
+  isEnabled(): boolean {
+    return this.enabled;
+  }
+
+  /** One plucked string: fast attack, exponential decay, slight downward bend. */
+  private pluck(freq: number, at = 0, volume = 0.05, length = 0.45) {
+    const ctx = this.context();
+    if (!ctx) return;
+    const t0 = ctx.currentTime + at;
+    const osc = ctx.createOscillator();
+    const overtone = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'triangle';
+    overtone.type = 'sine';
+    osc.frequency.setValueAtTime(freq * 1.006, t0);
+    osc.frequency.exponentialRampToValueAtTime(freq, t0 + 0.08);
+    overtone.frequency.setValueAtTime(freq * 2.01, t0);
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.exponentialRampToValueAtTime(volume, t0 + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + length);
+    osc.connect(gain);
+    overtone.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(t0);
+    overtone.start(t0);
+    osc.stop(t0 + length + 0.02);
+    overtone.stop(t0 + length + 0.02);
   }
 
   playClick() {
-    try {
-      if (!this.isEnabled) return;
-      this.init();
-      if (!this.ctx) return;
-
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-
-      osc.type = 'square';
-      osc.frequency.setValueAtTime(440, this.ctx.currentTime); // A4
-      osc.frequency.setValueAtTime(880, this.ctx.currentTime + 0.05); // A5
-
-      gain.gain.setValueAtTime(0.05, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.1);
-
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.1);
-    } catch (e) {
-      console.warn("Could not play click synth:", e);
-    }
-  }
-
-  playBreak() {
-    try {
-      if (!this.isEnabled) return;
-      this.init();
-      if (!this.ctx) return;
-
-      const bufferSize = this.ctx.sampleRate * 0.15; // 0.15s duration
-      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-      const data = buffer.getChannelData(0);
-
-      // Populate with white noise
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = Math.random() * 2 - 1;
-      }
-
-      const noise = this.ctx.createBufferSource();
-      noise.buffer = buffer;
-
-      const filter = this.ctx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(300, this.ctx.currentTime);
-      filter.frequency.exponentialRampToValueAtTime(80, this.ctx.currentTime + 0.15);
-
-      const gain = this.ctx.createGain();
-      gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.15);
-
-      noise.connect(filter);
-      filter.connect(gain);
-      gain.connect(this.ctx.destination);
-
-      noise.start();
-    } catch (e) {
-      console.warn("Could not play break noise:", e);
-    }
-  }
-
-  playLevelUp() {
-    try {
-      if (!this.isEnabled) return;
-      this.init();
-      if (!this.ctx) return;
-
-      const now = this.ctx.currentTime;
-      const notes = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5 (Triumphant Arpeggio)
-      
-      notes.forEach((freq, idx) => {
-        const osc = this.ctx!.createOscillator();
-        const gain = this.ctx!.createGain();
-
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-
-        gain.gain.setValueAtTime(0.0, now);
-        gain.gain.setValueAtTime(0.05, now + idx * 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.08 + 0.2);
-
-        osc.connect(gain);
-        gain.connect(this.ctx!.destination);
-
-        osc.start(now + idx * 0.08);
-        osc.stop(now + idx * 0.08 + 0.2);
-      });
-    } catch (e) {
-      console.warn("Could not play levelup arpeggio:", e);
-    }
+    this.pluck(PENTATONIC[4], 0, 0.035, 0.18);
   }
 
   playChime() {
-    try {
-      if (!this.isEnabled) return;
-      this.init();
-      if (!this.ctx) return;
+    this.pluck(PENTATONIC[7], 0, 0.04, 0.5);
+    this.pluck(PENTATONIC[9], 0.06, 0.03, 0.6);
+  }
 
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
+  playLevelUp() {
+    [0, 2, 3, 5, 7, 9].forEach((n, i) => this.pluck(PENTATONIC[n], i * 0.07, 0.045, 0.7));
+  }
 
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(987.77, this.ctx.currentTime); // B5 (High Chime)
-      osc.frequency.exponentialRampToValueAtTime(1318.51, this.ctx.currentTime + 0.08); // E6
-
-      gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.3);
-
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.3);
-    } catch (e) {
-      console.warn("Could not play chime:", e);
-    }
+  /** Low filtered-noise gust — used for damage and the soul-burst easter egg. */
+  playBurst() {
+    const ctx = this.context();
+    if (!ctx) return;
+    const length = 0.35;
+    const buffer = ctx.createBuffer(1, Math.floor(ctx.sampleRate * length), ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    const noise = ctx.createBufferSource();
+    noise.buffer = buffer;
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(900, ctx.currentTime);
+    filter.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + length);
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.09, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + length);
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    noise.start();
   }
 }
 
-export const synth = new AudioSynth();
+export const synth = new SpiritSynth();
+
+type Listener = (state: GameState) => void;
+
+function freshState(): GameState {
+  return { level: 1, xp: 0, health: MAX_HEALTH, completedQuests: [], readCerts: [] };
+}
+
+export function xpForLevel(level: number): number {
+  return level * 1000;
+}
 
 // Core State Manager
 export class GameManager {
   private state: GameState;
-  private onStateChangeCallback: ((state: GameState) => void) | null = null;
+  private listeners = new Set<Listener>();
 
   constructor() {
     this.state = this.loadState();
@@ -172,90 +129,89 @@ export class GameManager {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        return JSON.parse(stored);
+        const parsed = JSON.parse(stored) as Partial<GameState>;
+        return {
+          ...freshState(),
+          ...parsed,
+          completedQuests: Array.isArray(parsed.completedQuests) ? parsed.completedQuests : [],
+          readCerts: Array.isArray(parsed.readCerts) ? parsed.readCerts : []
+        };
       }
     } catch {
-      // Storage blocked or unavailable
+      // Storage blocked or corrupted — start fresh.
     }
-    
-    return {
-      level: 1,
-      xp: 0,
-      health: 10,
-      completedQuests: [],
-      readCerts: []
-    };
+    return freshState();
   }
 
-  private saveState() {
+  private commit() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
     } catch {
-      // Storage unavailable
+      // Storage unavailable (private mode) — progress lives for this visit only.
     }
-    if (this.onStateChangeCallback) {
-      this.onStateChangeCallback({ ...this.state });
-    }
+    const snapshot = this.getState();
+    this.listeners.forEach(fn => fn(snapshot));
   }
 
   getState(): GameState {
-    return { ...this.state };
+    return { ...this.state, completedQuests: [...this.state.completedQuests], readCerts: [...this.state.readCerts] };
   }
 
-  onStateChange(callback: (state: GameState) => void) {
-    this.onStateChangeCallback = callback;
-    callback({ ...this.state });
+  /** Subscribe; the listener is called immediately with the current state. */
+  onStateChange(listener: Listener): () => void {
+    this.listeners.add(listener);
+    listener(this.getState());
+    return () => this.listeners.delete(listener);
   }
 
-  addXP(amount: number) {
+  /** Returns true when the visitor gained a level (a new Spirit Ring). */
+  addXP(amount: number): boolean {
     this.state.xp += amount;
-    const xpNeeded = this.state.level * 1000;
-    
-    if (this.state.xp >= xpNeeded) {
-      this.state.xp -= xpNeeded;
+    let levelled = false;
+    while (this.state.xp >= xpForLevel(this.state.level)) {
+      this.state.xp -= xpForLevel(this.state.level);
       this.state.level += 1;
+      levelled = true;
+    }
+    if (levelled) {
       synth.playLevelUp();
+      window.dispatchEvent(new CustomEvent('spirit:pulse'));
     } else {
       synth.playChime();
     }
-    this.saveState();
+    this.commit();
+    return levelled;
   }
 
   damage(amount: number) {
     this.state.health = Math.max(0, this.state.health - amount);
-    synth.playBreak();
-    this.saveState();
+    synth.playBurst();
+    this.commit();
   }
 
   heal(amount: number) {
-    this.state.health = Math.min(10, this.state.health + amount);
+    this.state.health = Math.min(MAX_HEALTH, this.state.health + amount);
     synth.playChime();
-    this.saveState();
+    this.commit();
   }
 
-  completeQuest(questId: string) {
-    if (!this.state.completedQuests.includes(questId)) {
-      this.state.completedQuests.push(questId);
-      this.addXP(300); // 300 XP reward for completing quests
-    }
+  completeQuest(questId: string): boolean {
+    if (this.state.completedQuests.includes(questId)) return false;
+    this.state.completedQuests.push(questId);
+    this.addXP(300);
+    return true;
   }
 
-  readCert(certId: string) {
-    if (!this.state.readCerts.includes(certId)) {
-      this.state.readCerts.push(certId);
-      this.addXP(500); // 500 XP reward for acquiring certified magic
-    }
+  readCert(certId: string): boolean {
+    if (this.state.readCerts.includes(certId)) return false;
+    this.state.readCerts.push(certId);
+    this.addXP(500);
+    return true;
   }
 
   reset() {
-    this.state = {
-      level: 1,
-      xp: 0,
-      health: 10,
-      completedQuests: [],
-      readCerts: []
-    };
-    synth.playBreak();
-    this.saveState();
+    this.state = freshState();
+    synth.playBurst();
+    this.commit();
   }
 }

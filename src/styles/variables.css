@@ -1,35 +1,70 @@
-:root {
-  /* Color System (HSL) */
-  --color-obsidian-dark: hsl(240, 10%, 6%);     /* Main background */
-  --color-obsidian-card: hsl(240, 8%, 12%);     /* Card containers */
-  --color-obsidian-border: hsl(240, 6%, 22%);   /* Structural borders */
-  
-  --color-redstone-red: hsl(345, 100%, 60%);     /* Redstone Accent */
-  --color-redstone-glow: hsla(345, 100%, 60%, 0.35);
-  
-  --color-command-green: hsl(120, 100%, 54%);    /* Cyber Green */
-  --color-command-glow: hsla(120, 100%, 54%, 0.35);
-  
-  --color-cyber-blue: hsl(187, 100%, 50%);       /* Neon Blue */
-  --color-cyber-glow: hsla(187, 100%, 50%, 0.35);
-  
-  --color-text-bright: hsl(210, 20%, 98%);
-  --color-text-muted: hsl(210, 8%, 70%);
-  --color-text-dark: hsl(240, 5%, 4%);
-  
-  /* Minecraft Specific Retro Colors */
-  --color-mc-gray-bg: #c6c6c6;
-  --color-mc-border-light: #ffffff;
-  --color-mc-border-dark: #555555;
-  --color-mc-tooltip-purple: #1e092a;
-  --color-mc-tooltip-border: #2e0854;
-  --color-mc-text-yellow: #ffff55;
-  
-  /* Font Families */
-  --font-title: 'Press Start 2P', monospace;
-  --font-body: 'VT323', monospace;
-  
-  /* Layout Scales */
-  --scale-voxel: 4px;
-  --transition-minecraft: 0.1s steps(4);
+/* ═══ Design tokens — Spirit Land palette ═══════════════════════════════════
+   Text colours are checked against --void-1 (#0A0E17) and the panel tones:
+   --text 15.9:1 · --text-dim 9.2:1 · --text-faint 6.0:1 · jade/gold/crimson/purple
+   text tones all ≥ 6.9:1 (WCAG AA ≥ 4.5:1).                                  */
+
+@font-face {
+  font-family: 'Cinzel';
+  src: url('../assets/fonts/cinzel-latin-var.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: normal;
+  /* optional: no late swap, so the hero title can never shift layout (CLS 0). */
+  font-display: optional;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+:root {
+  color-scheme: dark;
+
+  /* Void / obsidian */
+  --void-0: #05070b;
+  --void-1: #0a0e17;
+  --void-2: #0f1522;
+  --void-3: #141b2b;
+  --panel: rgba(13, 18, 30, 0.86);
+
+  /* Text */
+  --text: #e8ecf3;
+  --text-dim: #a9b4c7;
+  --text-faint: #8391a7;
+
+  /* Spirit energies */
+  --gold: #f59e0b;
+  --gold-light: #fbbf24;
+  --gold-pale: #fde68a;
+  --bronze: #b45309;
+  --jade: #06b6d4;
+  --jade-light: #22d3ee;
+  --jade-text: #67e8f9;
+  --crimson: #ef4444;
+  --crimson-text: #f87171;
+  --purple: #a855f7;
+  --purple-text: #c084fc;
+  --yellow: #facc15;
+
+  /* Type */
+  --font-display: 'Cinzel', 'Trajan Pro', 'Times New Roman', Georgia, serif;
+  --font-body: 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', Consolas, 'SFMono-Regular', Menlo, monospace;
+
+  /* Shape & motion */
+  --radius: 16px;
+  --gutter: 16px;
+  --hud-space: 104px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Gold filigree corners for aura cards (one SVG per corner). */
+  --corner-tl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='%23FBBF24' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M2 28V10a8 8 0 0 1 8-8h18'/%3E%3Cpath d='M6 28V13a7 7 0 0 1 7-7h15' opacity='.4'/%3E%3Cpath d='M2 10c3.5 0 6 2.5 6 6M10 2c0 3.5 2.5 6 6 6'/%3E%3Ccircle cx='10.5' cy='10.5' r='1.8' fill='%23FBBF24' stroke='none'/%3E%3C/svg%3E");
+  --corner-tr: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='%23FBBF24' stroke-width='1.2' stroke-linecap='round'%3E%3Cg transform='rotate(90 15 15)'%3E%3Cpath d='M2 28V10a8 8 0 0 1 8-8h18'/%3E%3Cpath d='M6 28V13a7 7 0 0 1 7-7h15' opacity='.4'/%3E%3Cpath d='M2 10c3.5 0 6 2.5 6 6M10 2c0 3.5 2.5 6 6 6'/%3E%3Ccircle cx='10.5' cy='10.5' r='1.8' fill='%23FBBF24' stroke='none'/%3E%3C/g%3E%3C/svg%3E");
+  --corner-br: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='%23FBBF24' stroke-width='1.2' stroke-linecap='round'%3E%3Cg transform='rotate(180 15 15)'%3E%3Cpath d='M2 28V10a8 8 0 0 1 8-8h18'/%3E%3Cpath d='M6 28V13a7 7 0 0 1 7-7h15' opacity='.4'/%3E%3Cpath d='M2 10c3.5 0 6 2.5 6 6M10 2c0 3.5 2.5 6 6 6'/%3E%3Ccircle cx='10.5' cy='10.5' r='1.8' fill='%23FBBF24' stroke='none'/%3E%3C/g%3E%3C/svg%3E");
+  --corner-bl: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' fill='none' stroke='%23FBBF24' stroke-width='1.2' stroke-linecap='round'%3E%3Cg transform='rotate(270 15 15)'%3E%3Cpath d='M2 28V10a8 8 0 0 1 8-8h18'/%3E%3Cpath d='M6 28V13a7 7 0 0 1 7-7h15' opacity='.4'/%3E%3Cpath d='M2 10c3.5 0 6 2.5 6 6M10 2c0 3.5 2.5 6 6 6'/%3E%3Ccircle cx='10.5' cy='10.5' r='1.8' fill='%23FBBF24' stroke='none'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ═══ Spirit ring ranks ═════════════════════════════════════════════════════
+   --tier: ring colour · --tier-2: partner colour · --tier-text: readable text tone */
+.tier-r10   { --tier: #f1f5f9; --tier-2: #bfdbfe; --tier-text: #f1f5f9; }
+.tier-r100  { --tier: #facc15; --tier-2: #fde68a; --tier-text: #fde047; }
+.tier-r1k   { --tier: #a855f7; --tier-2: #d8b4fe; --tier-text: #c084fc; }
+.tier-r10k  { --tier: #dc2626; --tier-2: #7f1d1d; --tier-text: #f87171; --tier-body: #0b0b10; }
+.tier-r100k { --tier: #ef4444; --tier-2: #fca5a5; --tier-text: #f87171; }
+.tier-r1m   { --tier: #f59e0b; --tier-2: #06b6d4; --tier-text: #fbbf24; }
